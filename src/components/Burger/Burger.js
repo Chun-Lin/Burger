@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { BreadBottom, BreadTop } from './BurgerIngredients/index'
-// import BreadTop from './BurgerIngredients/BreadTop'
+import BurgerIngredients from './BurgerIngredients/BurgerIngredients'
 
 const StyledBurger = styled.div`
   width: 100%;
@@ -38,8 +37,8 @@ class Burger extends Component {
   render() {
     return (
       <StyledBurger>
-        <BreadTop />
-        <BreadBottom />
+        <BurgerIngredients type="breadtop" />
+        <BurgerIngredients type="breadbottom" />
       </StyledBurger>
     )
   }

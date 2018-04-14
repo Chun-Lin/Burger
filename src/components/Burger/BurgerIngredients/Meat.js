@@ -9,7 +9,7 @@ const StyledMeat = styled.div`
   border-radius: 15px;
 `
 
-export class Meat extends Component {
+export default class Meat extends Component {
   render() {
     return <StyledMeat />
   }

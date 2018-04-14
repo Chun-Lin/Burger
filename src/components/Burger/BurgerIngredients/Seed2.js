@@ -26,7 +26,7 @@ const StyledSeed2 = styled.div`
   }
 `
 
-export class Seed2 extends Component {
+export default class Seed2 extends Component {
   render() {
     return <StyledSeed2 />
   }

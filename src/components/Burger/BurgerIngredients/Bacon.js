@@ -8,7 +8,7 @@ const StyledBacon = styled.div`
     margin: 2% auto;
 `
 
-export class Bacon extends Component {
+export default class Bacon extends Component {
   render() {
     return <StyledBacon />
   }

@@ -11,7 +11,7 @@ const StyledBreadTop = styled.div`
   position: relative;
 `
 
-export class BreadTop extends Component {
+export default class BreadTop extends Component {
   render() {
     return <StyledBreadTop />
   }

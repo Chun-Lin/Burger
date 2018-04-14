@@ -10,7 +10,7 @@ const StyledBreadBottom = styled.div`
   margin: 2% auto;
 `
 
-export class BreadBottom extends Component {
+export default class BreadBottom extends Component {
   render() {
     return <StyledBreadBottom />
   }

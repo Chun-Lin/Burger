@@ -9,7 +9,7 @@ const StyledCheese = styled.div`
   border-radius: 20px;
 `
 
-export class Cheese extends Component {
+export default class Cheese extends Component {
   render() {
     return <StyledCheese />
   }

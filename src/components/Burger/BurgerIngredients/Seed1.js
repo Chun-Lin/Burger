@@ -39,7 +39,7 @@ const StyledSeed1 = styled.div`
   }
 `
 
-export class Seed1 extends Component {
+export default class Seed1 extends Component {
   render() {
     return <StyledSeed1 />
   }
