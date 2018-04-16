@@ -9,7 +9,7 @@ import Salad from './Salad'
 import Seed1 from './Seed1'
 import Seed2 from './Seed2'
 
-const BurgerIngredients = ({ type }) => {
+const BurgerIngredient = ({ type }) => {
   return type === 'bacon' ? (
     <Bacon />
   ) : type === 'breadbottom' ? (
@@ -29,8 +29,8 @@ const BurgerIngredients = ({ type }) => {
   ) : null
 }
 
-BurgerIngredients.propTypes = {
+BurgerIngredient.propTypes = {
   type: PropTypes.string.isRequired,
 }
 
-export default BurgerIngredients
+export default BurgerIngredient

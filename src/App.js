@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import Burger  from './components/Burger/Burger'
+import BurgerBuilder from './container/BurgerBuilder'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Burger />
+        <BurgerBuilder />
       </div>
     )
   }

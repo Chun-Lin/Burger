@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import BurgerIngredients from './BurgerIngredients/BurgerIngredients'
+import BurgerIngredient from './BurgerIngredients/BurgerIngredients'
 
 const StyledBurger = styled.div`
   width: 100%;
   margin: auto;
-  height: 250px;
+  height: 300px;
   overflow: scroll;
   text-align: center;
   font-weight: bold;
@@ -33,15 +33,30 @@ const StyledBurger = styled.div`
   }
 `
 
-class Burger extends Component {
-  render() {
-    return (
-      <StyledBurger>
-        <BurgerIngredients type="breadtop" />
-        <BurgerIngredients type="breadbottom" />
-      </StyledBurger>
-    )
+const Burger = ({ ingredients }) => {
+  const ingredientNumbers = Object.values(ingredients)
+
+  let transformedIngredients = Object.keys(ingredients)
+    .map((igKey, i) => {
+      return [...Array(ingredientNumbers[i])].map((_, i) => {
+        return <BurgerIngredient key={igKey + i} type={igKey} />
+      })
+    })
+    .reduce((arr, el) => {
+      return arr.concat(el)
+    }, [])
+
+  if (transformedIngredients.length === 0) {
+    transformedIngredients = <p>Please start adding ingredients!</p>
   }
+
+  return (
+    <StyledBurger>
+      <BurgerIngredient type="breadtop" />
+      {transformedIngredients}
+      <BurgerIngredient type="breadbottom" />
+    </StyledBurger>
+  )
 }
 
 export default Burger
