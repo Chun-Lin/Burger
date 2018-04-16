@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import BurgerIngredient from './BurgerIngredients/BurgerIngredients'
+
 
 const StyledBurger = styled.div`
   width: 100%;
@@ -57,6 +59,10 @@ const Burger = ({ ingredients }) => {
       <BurgerIngredient type="breadbottom" />
     </StyledBurger>
   )
+}
+
+Burger.propTypes = {
+  ingredients: PropTypes.object,
 }
 
 export default Burger
