@@ -3,35 +3,28 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import BurgerIngredient from './BurgerIngredients/BurgerIngredients'
 
-
 const StyledBurger = styled.div`
   width: 100%;
   margin: auto;
-  height: 300px;
+  height: 250px;
   overflow: scroll;
   text-align: center;
   font-weight: bold;
   font-size: 1.2rem;
 
   @media (min-width: 500px) and (min-height: 400px) {
-    .Burger {
-      width: 350px;
-      height: 300px;
-    }
+    width: 350px;
+    height: 300px;
   }
 
   @media (min-width: 500px) and (min-height: 401px) {
-    .Burger {
-      width: 450px;
-      height: 400px;
-    }
+    width: 450px;
+    height: 400px;
   }
 
   @media (min-width: 1000px) and (min-height: 700px) {
-    .Burger {
-      width: 700px;
-      height: 600px;
-    }
+    width: 700px;
+    height: 600px;
   }
 `
 
