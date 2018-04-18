@@ -13,6 +13,19 @@ class BurgerBuilder extends Component {
       meat: 1,
     },
     totalPrice: 65,
+    purchasable: true,
+  }
+
+  isPurchasable = ingredients => {
+    const updatedPurchasable = Object.keys(ingredients)
+      .map(key => {
+        return ingredients[key]
+      })
+      .reduce((num, el) => {
+        return num + el
+      }, 0)
+
+    this.setState({ purchasable: updatedPurchasable > 0 })
   }
 
   addTotalPrice = type => {
@@ -33,6 +46,7 @@ class BurgerBuilder extends Component {
       ingredients: updatedIngredients,
       totalPrice: updatedTotalPrice,
     })
+    this.isPurchasable(updatedIngredients)
   }
 
   decreaseIngredients = type => {
@@ -46,6 +60,8 @@ class BurgerBuilder extends Component {
       ingredients: updatedIngredients,
       totalPrice: updatedTotalPrice,
     })
+
+    this.isPurchasable(updatedIngredients)
   }
 
   render() {
@@ -62,6 +78,7 @@ class BurgerBuilder extends Component {
           decreaseIngredients={this.decreaseIngredients}
           price={this.state.totalPrice}
           disabled={disabledLessButtons}
+          purchasable={this.state.purchasable}
         />
       </React.Fragment>
     )
