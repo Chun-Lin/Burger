@@ -21,7 +21,12 @@ const controls = [
   { label: 'Meat', type: 'meat' },
 ]
 
-const BurgerControls = ({ addIngredients, decreaseIngredients, price }) => {
+const BurgerControls = ({
+  addIngredients,
+  decreaseIngredients,
+  price,
+  disabled,
+}) => {
   return (
     <StyledBurgerContorls>
       <p>
@@ -33,6 +38,7 @@ const BurgerControls = ({ addIngredients, decreaseIngredients, price }) => {
           label={control.label}
           add={() => addIngredients(control.type)}
           decrease={() => decreaseIngredients(control.type)}
+          disabled={disabled[control.type]}
         />
       ))}
     </StyledBurgerContorls>

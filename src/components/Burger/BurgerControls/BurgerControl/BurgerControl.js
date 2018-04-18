@@ -68,12 +68,14 @@ const MoreButton = StyledButton.extend`
   }
 `
 
-const BurgerControl = ({label, add, decrease}) => {
+const BurgerControl = ({ label, add, decrease, disabled }) => {
   return (
     <BuildControl>
       <StyledLabel>{label}</StyledLabel>
-        <LessButton onClick={decrease}>Less</LessButton>
-        <MoreButton onClick={add}>More</MoreButton>
+      <LessButton onClick={decrease} disabled={disabled}>
+        Less
+      </LessButton>
+      <MoreButton onClick={add}>More</MoreButton>
     </BuildControl>
   )
 }

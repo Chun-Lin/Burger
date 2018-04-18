@@ -49,6 +49,11 @@ class BurgerBuilder extends Component {
   }
 
   render() {
+    const disabledLessButtons = { ...this.state.ingredients }
+    for (const key in disabledLessButtons) {
+      disabledLessButtons[key] = disabledLessButtons[key] <= 0
+    }
+
     return (
       <React.Fragment>
         <Burger ingredients={this.state.ingredients} />
@@ -56,6 +61,7 @@ class BurgerBuilder extends Component {
           addIngredients={this.addIngredients}
           decreaseIngredients={this.decreaseIngredients}
           price={this.state.totalPrice}
+          disabled={disabledLessButtons}
         />
       </React.Fragment>
     )
