@@ -21,11 +21,16 @@ const controls = [
   { label: 'Meat', type: 'meat' },
 ]
 
-const BurgerControls = () => {
+const BurgerControls = ({ addIngredients, decreaseIngredients }) => {
   return (
     <StyledBurgerContorls>
       {controls.map(control => (
-        <BurgerControl key={control.label} label={control.label} />
+        <BurgerControl
+          key={control.label}
+          label={control.label}
+          add={() => addIngredients(control.type)}
+          decrease={() => decreaseIngredients(control.type)}
+        />
       ))}
     </StyledBurgerContorls>
   )
