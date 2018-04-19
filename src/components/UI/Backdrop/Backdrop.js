@@ -11,11 +11,10 @@ const StyledBackdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `
 
-const Backdrop = ({ showModal, clicked }) =>
-  showModal ? (
-    <Fragment>
-      <StyledBackdrop onClick={clicked} />
-    </Fragment>
-  ) : null
+const Backdrop = ({ clicked }) => (
+  <Fragment>
+    <StyledBackdrop onClick={clicked} />
+  </Fragment>
+)
 
 export default Backdrop

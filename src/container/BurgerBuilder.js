@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 import Burger from '../components/Burger/Burger'
 import BurgerControls from '../components/Burger/BurgerControls/BurgerControls'
@@ -91,7 +91,12 @@ class BurgerBuilder extends Component {
             price={this.state.totalPrice}
           />
         </Modal>
-        <Backdrop showModal={this.state.purchasing} clicked={this.closeModal} />
+
+        {this.state.purchasing ? (
+          <Backdrop clicked={this.closeModal} />
+        ) : (
+          <Fragment />
+        )}
 
         <Burger ingredients={this.state.ingredients} />
         <BurgerControls
