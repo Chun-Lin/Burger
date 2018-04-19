@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react'
 import styled from 'styled-components'
 
-const OrderSummary = ({ ingredients, price }) => {
+import Button from '../../UI/Button/Button'
+
+const OrderSummary = ({ ingredients, price, cancelClicked, continueClicked }) => {
   const CapSpan = styled.span`
     text-transform: capitalize;
   `
@@ -21,6 +23,8 @@ const OrderSummary = ({ ingredients, price }) => {
       <ul>{ingredientSummary}</ul>
       <p>Total Price: {price}</p>
       <p>Continue to Checkout?</p>
+      <Button btnType="danger" onClick={cancelClicked}>Cancel</Button>
+      <Button btnType="success" onClick={continueClicked}>Continue</Button>
     </Fragment>
   )
 }
