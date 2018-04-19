@@ -4,6 +4,7 @@ import Burger from '../components/Burger/Burger'
 import BurgerControls from '../components/Burger/BurgerControls/BurgerControls'
 import Modal from '../components/UI/Modal/Modal'
 import OrderSummary from '../components/Burger/OrderSummary/OrderSummary'
+import Backdrop from '../components/UI/Backdrop/Backdrop'
 
 import INGREDIENTS_PRICE from '../constants/ingredientsPrice'
 
@@ -33,9 +34,11 @@ class BurgerBuilder extends Component {
   }
 
   isPurchasing = () => {
-    this.setState(prevState => {
-      return { purchasing: true }
-    })
+    this.setState({ purchasing: true })
+  }
+
+  closeModal = () => {
+    this.setState({ purchasing: false })
   }
 
   addTotalPrice = type => {
@@ -88,6 +91,8 @@ class BurgerBuilder extends Component {
             price={this.state.totalPrice}
           />
         </Modal>
+        <Backdrop showModal={this.state.purchasing} clicked={this.closeModal} />
+
         <Burger ingredients={this.state.ingredients} />
         <BurgerControls
           addIngredients={this.addIngredients}
