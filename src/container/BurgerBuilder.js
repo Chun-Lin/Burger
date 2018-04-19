@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import Burger from '../components/Burger/Burger'
 import BurgerControls from '../components/Burger/BurgerControls/BurgerControls'
+import Modal from '../components/UI/Modal/Modal'
 import INGREDIENTS_PRICE from '../constants/ingredientsPrice'
 
 class BurgerBuilder extends Component {
@@ -14,6 +15,7 @@ class BurgerBuilder extends Component {
     },
     totalPrice: 65,
     purchasable: true,
+    purchasing: false,
   }
 
   isPurchasable = ingredients => {
@@ -26,6 +28,12 @@ class BurgerBuilder extends Component {
       }, 0)
 
     this.setState({ purchasable: updatedPurchasable > 0 })
+  }
+
+  isPurchasing = () => {
+    this.setState(prevState => {
+      return { purchasing: !prevState.purchasing }
+    })
   }
 
   addTotalPrice = type => {
@@ -72,6 +80,7 @@ class BurgerBuilder extends Component {
 
     return (
       <React.Fragment>
+        <Modal showModal={this.state.purchasing} />
         <Burger ingredients={this.state.ingredients} />
         <BurgerControls
           addIngredients={this.addIngredients}
@@ -79,6 +88,7 @@ class BurgerBuilder extends Component {
           price={this.state.totalPrice}
           disabled={disabledLessButtons}
           purchasable={this.state.purchasable}
+          purchasing={this.isPurchasing}
         />
       </React.Fragment>
     )

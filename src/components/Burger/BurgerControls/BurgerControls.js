@@ -73,7 +73,8 @@ const BurgerControls = ({
   decreaseIngredients,
   price,
   disabled,
-  purchasable
+  purchasable,
+  purchasing,
 }) => {
   return (
     <StyledBurgerContorls>
@@ -89,7 +90,9 @@ const BurgerControls = ({
           disabled={disabled[control.type]}
         />
       ))}
-      <OrderButton disabled={!purchasable}>Order Now!</OrderButton>
+      <OrderButton disabled={!purchasable} onClick={purchasing}>
+        Order Now!
+      </OrderButton>
     </StyledBurgerContorls>
   )
 }
