@@ -11,7 +11,8 @@ const StyledModal = styled.div`
   left: 15%;
   top: 30%;
   box-sizing: border-box;
-  transition: all 0.3s ease-out;
+  transition: all 0.5s ease-out;
+  transform: ${props => (props.showModal ? 'translateY(0)' : 'translateY(-100vh)')};
   opacity: ${props => (props.showModal ? '1' : '0')};
 
   @media (min-width: 600px) {

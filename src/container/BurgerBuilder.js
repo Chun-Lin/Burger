@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import Burger from '../components/Burger/Burger'
 import BurgerControls from '../components/Burger/BurgerControls/BurgerControls'
 import Modal from '../components/UI/Modal/Modal'
+import OrderSummary from '../components/Burger/OrderSummary/OrderSummary'
+
 import INGREDIENTS_PRICE from '../constants/ingredientsPrice'
 
 class BurgerBuilder extends Component {
@@ -32,7 +34,7 @@ class BurgerBuilder extends Component {
 
   isPurchasing = () => {
     this.setState(prevState => {
-      return { purchasing: !prevState.purchasing }
+      return { purchasing: true }
     })
   }
 
@@ -80,7 +82,12 @@ class BurgerBuilder extends Component {
 
     return (
       <React.Fragment>
-        <Modal showModal={this.state.purchasing} />
+        <Modal showModal={this.state.purchasing}>
+          <OrderSummary
+            ingredients={this.state.ingredients}
+            price={this.state.totalPrice}
+          />
+        </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BurgerControls
           addIngredients={this.addIngredients}
