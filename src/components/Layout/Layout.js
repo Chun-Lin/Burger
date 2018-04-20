@@ -1,15 +1,17 @@
 import React, { Fragment } from 'react'
 import styled from 'styled-components'
+import Toolbar from '../Toolbar/Toolbar'
 import PropTypes from 'prop-types'
 
 const StyledMain = styled.main`
-  margin-top: 16px;
+  margin-top: 72px;
 `
 
 const Layout = ({ children }) => {
   return (
     <Fragment>
-      <div>Toolbar, SideDrawer, Backdrop</div>
+      {/* <div>Toolbar, SideDrawer, Backdrop</div> */}
+      <Toolbar />
       <StyledMain>{children}</StyledMain>
     </Fragment>
   )
