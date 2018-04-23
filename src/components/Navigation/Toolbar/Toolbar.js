@@ -32,10 +32,10 @@ const WrapperNav = styled.nav`
   }
 `
 
-const Toolbar = () => {
+const Toolbar = ({ drawerToggleClicked }) => {
   return (
     <StyledToolbar>
-      <DrawerToggle />
+      <DrawerToggle onClick={drawerToggleClicked} />
       <WrapperLogo>
         <Logo />
       </WrapperLogo>

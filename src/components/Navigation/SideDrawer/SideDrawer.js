@@ -2,7 +2,6 @@ import React, { Fragment } from 'react'
 import styled from 'styled-components'
 
 import Logo from '../../Logo/Logo'
-import Backdrop from '../../UI/Backdrop/Backdrop'
 import NavigationItems from '../NavigationItems/NavigationItems'
 
 const StyledSideDrawer = styled.div`
@@ -17,6 +16,7 @@ const StyledSideDrawer = styled.div`
   padding: 32px 16px;
   box-sizing: border-box;
   transition: transform 0.3s ease-out;
+  transform: ${props => (props.show ? `translateX(0)` : `translateX(-100%)`)};
 
   @media (min-width: 500px) {
     display: none;
@@ -31,11 +31,10 @@ const WrapperLogo = styled.div`
   margin-bottom: 32px;
 `
 
-const SideDrawer = () => {
+const SideDrawer = ({ open }) => {
   return (
     <Fragment>
-      <Backdrop />
-      <StyledSideDrawer>
+      <StyledSideDrawer show={open}>
         <WrapperLogo>
           <Logo />
         </WrapperLogo>

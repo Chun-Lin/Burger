@@ -23,9 +23,11 @@ const HorizonLine = styled.div`
   background-color: white;
 `
 
-const DrawerToggle = () => {
+const noop = () => {}
+
+const DrawerToggle = ({ onClick = noop }) => {
   return (
-    <StyledDrawerToggle>
+    <StyledDrawerToggle onClick={onClick}>
       <HorizonLine />
       <HorizonLine />
       <HorizonLine />

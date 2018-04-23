@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import Toolbar from '../Navigation/Toolbar/Toolbar'
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer'
+import Backdrop from '../UI/Backdrop/Backdrop'
 import PropTypes from 'prop-types'
 
 const StyledMain = styled.main`
@@ -9,13 +10,32 @@ const StyledMain = styled.main`
 `
 
 class Layout extends Component {
+  state = {
+    isSideDrawerOpen: false,
+  }
+
+  drawerToggleHandler = () => {
+    this.setState(prevState => {
+      return { isSideDrawerOpen: !prevState.isSideDrawerOpen }
+    })
+  }
+
+  backDropHandler = () => {
+    this.setState({ isSideDrawerOpen: false })
+  }
+
   render() {
     const { children } = this.props
 
     return (
       <Fragment>
-        <SideDrawer />
-        <Toolbar />
+        {this.state.isSideDrawerOpen ? (
+          <Backdrop clicked={this.backDropHandler} />
+        ) : (
+          <Fragment />
+        )}
+        <SideDrawer open={this.state.isSideDrawerOpen} />
+        <Toolbar drawerToggleClicked={this.drawerToggleHandler} />
         <StyledMain>{children}</StyledMain>
       </Fragment>
     )
