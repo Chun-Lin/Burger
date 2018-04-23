@@ -34,7 +34,7 @@ const WrapperLogo = styled.div`
 const SideDrawer = () => {
   return (
     <Fragment>
-      {/* <Backdrop /> */}
+      <Backdrop />
       <StyledSideDrawer>
         <WrapperLogo>
           <Logo />

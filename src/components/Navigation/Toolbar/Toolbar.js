@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Logo from '../../Logo/Logo'
-
 import NavigationItems from '../NavigationItems/NavigationItems'
+import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle'
 
 const StyledToolbar = styled.header`
   height: 56px;
@@ -26,11 +26,16 @@ const WrapperLogo = styled.div`
 
 const WrapperNav = styled.nav`
   height: 100%;
+
+  @media (max-width: 499px) {
+    display: none;
+  }
 `
 
 const Toolbar = () => {
   return (
     <StyledToolbar>
+      <DrawerToggle />
       <WrapperLogo>
         <Logo />
       </WrapperLogo>

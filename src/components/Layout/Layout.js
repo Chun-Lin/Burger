@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import Toolbar from '../Navigation/Toolbar/Toolbar'
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer'
@@ -8,14 +8,18 @@ const StyledMain = styled.main`
   margin-top: 72px;
 `
 
-const Layout = ({ children }) => {
-  return (
-    <Fragment>
-      <SideDrawer />
-      <Toolbar />
-      <StyledMain>{children}</StyledMain>
-    </Fragment>
-  )
+class Layout extends Component {
+  render() {
+    const { children } = this.props
+
+    return (
+      <Fragment>
+        <SideDrawer />
+        <Toolbar />
+        <StyledMain>{children}</StyledMain>
+      </Fragment>
+    )
+  }
 }
 
 Layout.propTypes = {
