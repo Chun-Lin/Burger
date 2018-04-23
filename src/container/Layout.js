@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
-import Toolbar from '../Navigation/Toolbar/Toolbar'
-import SideDrawer from '../Navigation/SideDrawer/SideDrawer'
-import Backdrop from '../UI/Backdrop/Backdrop'
+import Toolbar from '../components/Navigation/Toolbar/Toolbar'
+import SideDrawer from '../components/Navigation/SideDrawer/SideDrawer'
+import Backdrop from '../components/UI/Backdrop/Backdrop'
 import PropTypes from 'prop-types'
 
 const StyledMain = styled.main`
