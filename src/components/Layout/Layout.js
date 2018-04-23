@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import styled from 'styled-components'
 import Toolbar from '../Navigation/Toolbar/Toolbar'
+import SideDrawer from '../Navigation/SideDrawer/SideDrawer'
 import PropTypes from 'prop-types'
 
 const StyledMain = styled.main`
@@ -10,7 +11,7 @@ const StyledMain = styled.main`
 const Layout = ({ children }) => {
   return (
     <Fragment>
-      {/* <div>Toolbar, SideDrawer, Backdrop</div> */}
+      <SideDrawer />
       <Toolbar />
       <StyledMain>{children}</StyledMain>
     </Fragment>
