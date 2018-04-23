@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Logo from '../Logo/Logo'
+import Logo from '../../Logo/Logo'
 
-import NavigationItems from '../Navigation/NavigationItems/NavigationItems'
+import NavigationItems from '../NavigationItems/NavigationItems'
 
 const StyledToolbar = styled.header`
   height: 56px;

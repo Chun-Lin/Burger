@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import styled from 'styled-components'
-import Toolbar from '../Toolbar/Toolbar'
+import Toolbar from '../Navigation/Toolbar/Toolbar'
 import PropTypes from 'prop-types'
 
 const StyledMain = styled.main`
