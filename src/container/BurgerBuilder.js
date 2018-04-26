@@ -8,6 +8,8 @@ import Backdrop from '../components/UI/Backdrop/Backdrop'
 
 import INGREDIENTS_PRICE from '../constants/ingredientsPrice'
 
+import axios from '../axios-orders'
+
 class BurgerBuilder extends Component {
   state = {
     ingredients: {
@@ -42,8 +44,31 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContinueHandler = () => {
-    alert('You continue!');
-}
+    const order = {
+      ingredients: this.state.ingredients,
+      price: this.state.totalPrice,
+      customer: {
+        name: 'ChunLin Wu',
+        address: {
+          street: 'Teststreet 1',
+          zipCode: '41351',
+          country: 'Taiwan',
+        },
+        email: 'test@test.com',
+      },
+      deliveryMethod: 'fastest',
+    }
+
+    axios
+      .post('/orders.json', order)
+      .then(response => {
+        console.log(response)
+        this.setState({ purchasing: false })
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
 
   addTotalPrice = type => {
     return this.state.totalPrice + INGREDIENTS_PRICE[type]
