@@ -6,6 +6,7 @@ import Modal from '../components/UI/Modal/Modal'
 import OrderSummary from '../components/Burger/OrderSummary/OrderSummary'
 import Backdrop from '../components/UI/Backdrop/Backdrop'
 import Spinner from '../components/UI/Spinner/Spinner'
+import withErrorHandler from '../hoc/withErrorHandler'
 
 import INGREDIENTS_PRICE from '../constants/ingredientsPrice'
 
@@ -151,4 +152,4 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default BurgerBuilder
+export default withErrorHandler(BurgerBuilder)
