@@ -31,6 +31,11 @@ const withErrorHandler = WrappedComponent => {
       errorMessage: '',
     }
 
+    componentWillUnmount(){
+      axios.interceptors.request.eject(this.reqInterceptor);
+      axios.interceptors.request.eject(this.resInterceptor);
+    }
+
     modalClosedHandler = () => {
       this.setState({ error: false })
     }
