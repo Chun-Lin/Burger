@@ -5,13 +5,9 @@ import axios from '../axios-orders'
 
 const withErrorHandler = WrappedComponent => {
   return class extends Component {
-    state = {
-      error: false,
-      errorMessage: '',
-    }
-
-    componentDidMount() {
-      axios.interceptors.request.use(
+    constructor(props) {
+      super(props)
+      this.reqInterceptor = axios.interceptors.request.use(
         req => {
           this.setState({ error: false, errorMessage: '' })
           return req
@@ -19,15 +15,20 @@ const withErrorHandler = WrappedComponent => {
         error => {
           console.log(error)
         },
-      )
 
-      axios.interceptors.response.use(
-        res => res,
-        error => {
-          console.log(error)
-          this.setState({ error: true, errorMessage: error })
-        },
+        (this.resInterceptor = axios.interceptors.response.use(
+          res => res,
+          error => {
+            console.log(error)
+            this.setState({ error: true, errorMessage: error })
+          },
+        )),
       )
+    }
+
+    state = {
+      error: false,
+      errorMessage: '',
     }
 
     modalClosedHandler = () => {

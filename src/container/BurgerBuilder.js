@@ -8,7 +8,6 @@ import Backdrop from '../components/UI/Backdrop/Backdrop'
 import Spinner from '../components/UI/Spinner/Spinner'
 import withErrorHandler from '../hoc/withErrorHandler'
 
-import INGREDIENTS_PRICE from '../constants/ingredientsPrice'
 
 import axios from '../axios-orders'
 
@@ -102,11 +101,11 @@ class BurgerBuilder extends Component {
   }
 
   addTotalPrice = type => {
-    return this.state.totalPrice + INGREDIENTS_PRICE[type]
+    return this.state.totalPrice + this.state.price[type]
   }
 
   decreaseTotalPrice = type => {
-    return this.state.totalPrice - INGREDIENTS_PRICE[type]
+    return this.state.totalPrice - this.state.price[type]
   }
 
   addIngredients = type => {
