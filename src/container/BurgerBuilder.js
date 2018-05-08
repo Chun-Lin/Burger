@@ -8,7 +8,6 @@ import Backdrop from '../components/UI/Backdrop/Backdrop'
 import Spinner from '../components/UI/Spinner/Spinner'
 import withErrorHandler from '../hoc/withErrorHandler'
 
-
 import axios from '../axios-orders'
 
 class BurgerBuilder extends Component {
@@ -98,7 +97,21 @@ class BurgerBuilder extends Component {
     //   .catch(error => {
     //     console.log(error)
     //   })
-    this.props.history.push('/checkout')
+    const queryParams = []
+    if (this.state.ingredients) {
+      for (let i in this.state.ingredients) {
+        queryParams.push(
+          `${encodeURIComponent(i)}=${encodeURIComponent(
+            this.state.ingredients[i],
+          )}`,
+        )
+      }
+    }
+    const queryString = queryParams.join('&')
+    this.props.history.push({
+      pathname: '/checkout',
+      search: `?${queryString}`,
+    })
   }
 
   addTotalPrice = type => {
