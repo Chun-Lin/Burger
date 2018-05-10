@@ -10,12 +10,38 @@ const StyledOrder = styled.div`
   box-sizing: border-box;
 `
 
-const Order = () => {
+const IngredientSpan = styled.span`
+  display: inline-block;
+  border: 1px solid #ccc;
+  margin: 0 7px;
+  padding: 2px 5px;
+`
+
+const Order = ({ ingredients, totalPrice, customerName }) => {
+  let orderIngredients = []
+  for (let ingre in ingredients) {
+    orderIngredients.push({ name: ingre, amount: ingredients[ingre] })
+  }
+  console.log(orderIngredients)
+
+  const ingredientOutput = orderIngredients.map(orderIngre => {
+    return (
+      <IngredientSpan key={orderIngre.name}>
+        {' '}
+        {orderIngre.name}({orderIngre.amount})
+      </IngredientSpan>
+    )
+  })
+
   return (
     <StyledOrder>
-      <p>Ingredients:Salad</p>
+      <h2>{customerName}</h2>
+      <p>Ingredients:{ingredientOutput}</p>
       <p>
-        Price: <strong>USD </strong>
+        Price:{' '}
+        <strong>
+          USD <strong>{totalPrice}</strong>
+        </strong>
       </p>
     </StyledOrder>
   )
