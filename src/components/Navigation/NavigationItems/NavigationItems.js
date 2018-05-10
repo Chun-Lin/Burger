@@ -4,30 +4,28 @@ import styled from 'styled-components'
 import NavigationItem from './NavigationItem/NavigationItem'
 
 const StyledNavigationItems = styled.ul`
-  display:flex;
+  display: flex;
   flex-direction: column;
-  ${'' /* justify-content: space-between; */}
-  align-items: center;
+  ${'' /* justify-content: space-between; */} align-items: center;
   padding: 0;
   margin: 0;
   height: 100%;
   list-style: none;
 
   @media (min-width: 500px) {
-        flex-flow: row;
-}
+    flex-flow: row;
+  }
 `
 
-
-const NavigationItems = () =>{
+const NavigationItems = () => {
   return (
-        <StyledNavigationItems>
-          <NavigationItem link="/">Burger Builder</NavigationItem>
-          <NavigationItem link="/">Checkout</NavigationItem>
-        </StyledNavigationItems>
-
+    <StyledNavigationItems>
+      <NavigationItem link="/" exact>
+        Burger Builder
+      </NavigationItem>
+      <NavigationItem link="/Orders">Orders</NavigationItem>
+    </StyledNavigationItems>
   )
-
 }
 
 export default NavigationItems

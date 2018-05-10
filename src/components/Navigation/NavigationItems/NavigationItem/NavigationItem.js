@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
 
 const StyledList = styled.li`
   margin: 10px 0;
@@ -16,7 +17,7 @@ const StyledList = styled.li`
   }
 `
 
-const StyledA = styled.a`
+const StyledNavLink = styled(NavLink)`
   color: #8f5c2c;
   text-decoration: none;
   width: 100%;
@@ -51,10 +52,20 @@ const StyledA = styled.a`
   }
 `
 
-const NavigationItem = ({ children, link }) => {
+const NavigationItem = ({ children, link, exact }) => {
   return (
     <StyledList>
-      <StyledA href={link}>{children}</StyledA>
+      <StyledNavLink
+        to={link}
+        exact={exact}
+        activeStyle={{
+          backgroundColor: '#8f5c2c',
+          borderBottom: '6px solid #40a4c8',
+          color: 'white',
+        }}
+      >
+        {children}
+      </StyledNavLink>
     </StyledList>
   )
 }
