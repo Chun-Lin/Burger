@@ -118,7 +118,7 @@ class ContactData extends Component {
               key={element.id}
               elementType={element.config.elementType}
               elementConfig={element.config.elementConfig}
-              // value={element.cionfig.value}
+              value={element.config.value}
             />
           )
         })}
