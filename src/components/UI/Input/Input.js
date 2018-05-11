@@ -32,7 +32,7 @@ const Label = styled.label`
 const Input = props => {
   let inputElement = null
 
-  switch (props.inputType) {
+  switch (props.elementType) {
     case 'input':
       inputElement = (
         <InputElement {...props.elementConfig} value={props.value} />

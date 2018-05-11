@@ -18,10 +18,6 @@ const StyledContactData = styled.div`
   }
 `
 
-const StyledInput = styled.input`
-  display: block;
-`
-
 class ContactData extends Component {
   state = {
     orderForm: {
@@ -109,32 +105,23 @@ class ContactData extends Component {
   }
 
   render() {
+    const formElements = []
+    for (let key in this.state.orderForm) {
+      formElements.push({ id: key, config: this.state.orderForm[key] })
+    }
+    console.log(formElements)
     let form = (
       <form>
-        <Input
-          inputType="input"
-          type="text"
-          name="name"
-          placeholder="Your Name"
-        />
-        <Input
-          inputType="input"
-          type="email"
-          name="email"
-          placeholder="Your Email"
-        />
-        <Input
-          inputType="input"
-          type="text"
-          name="street"
-          placeholder="Street"
-        />
-        <Input
-          inputType="input"
-          type="text"
-          name="postal"
-          placeholder="Postal Code"
-        />
+        {formElements.map(element => {
+          return (
+            <Input
+              key={element.id}
+              elementType={element.config.elementType}
+              elementConfig={element.config.elementConfig}
+              // value={element.cionfig.value}
+            />
+          )
+        })}
         <Button btnType="success" onClick={this.orderHandler}>
           ORDER
         </Button>
