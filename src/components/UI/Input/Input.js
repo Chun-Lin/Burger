@@ -23,6 +23,22 @@ const InputElement = styled.input`
   }
 `
 
+const StyledSelect = styled.select`
+  outline: none;
+  border: 1px solid #ccc;
+  background-color: white;
+  font: inherit;
+  padding: 6px 10px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    background-color: #ccc;
+  }
+`
+
 const Label = styled.label`
   font-weight: bold;
   display: block;
@@ -45,7 +61,7 @@ const Input = props => {
       break
     case 'select':
       inputElement = (
-        <select value={props.value}>
+        <StyledSelect value={props.value}>
           {props.elementConfig.options.map(option => {
             return (
               <option key={option.value} value={option.value}>
@@ -53,7 +69,7 @@ const Input = props => {
               </option>
             )
           })}
-        </select>
+        </StyledSelect>
       )
       break
     default:
