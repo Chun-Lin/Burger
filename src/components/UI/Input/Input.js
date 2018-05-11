@@ -34,13 +34,19 @@ const Input = props => {
 
   switch (props.inputType) {
     case 'input':
-      inputElement = <InputElement {...props} />
+      inputElement = (
+        <InputElement {...props.elementConfig} value={props.value} />
+      )
       break
     case 'textarea':
-      inputElement = <InputElement {...props} />
+      inputElement = (
+        <InputElement {...props.elementConfig} value={props.value} />
+      )
       break
     default:
-      inputElement = <InputElement {...props} />
+      inputElement = (
+        <InputElement {...props.elementConfig} value={props.value} />
+      )
   }
 
   return (
