@@ -104,6 +104,16 @@ class ContactData extends Component {
       })
   }
 
+  changeHandler = (event, inputIdentifier) => {
+    const updatedOrderForm = { ...this.state.orderForm }
+    const updatedOrderElement = { ...updatedOrderForm[inputIdentifier] }
+
+    updatedOrderElement.value = event.target.value
+    updatedOrderForm[inputIdentifier] = updatedOrderElement
+
+    this.setState({ orderForm: updatedOrderForm })
+  }
+
   render() {
     const formElements = []
     for (let key in this.state.orderForm) {
@@ -119,6 +129,7 @@ class ContactData extends Component {
               elementType={element.config.elementType}
               elementConfig={element.config.elementConfig}
               value={element.config.value}
+              changed={event => this.changeHandler(event, element.id)}
             />
           )
         })}
