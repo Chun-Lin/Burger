@@ -5,6 +5,9 @@ import Button from '../../../components/UI/Button/Button'
 import Spinner from '../../../components/UI/Spinner/Spinner'
 import Input from '../../../components/UI/Input/Input'
 import axios from '../../../axios-orders'
+import { withFormik, Field } from 'formik'
+import Yup from 'yup'
+import * as R from 'ramda'
 
 const StyledContactData = styled.div`
   margin: 20px auto;
@@ -21,7 +24,7 @@ const StyledContactData = styled.div`
 class ContactData extends Component {
   state = {
     orderForm: {
-      name: {
+      userName: {
         elementType: 'input',
         elementConfig: {
           type: 'text',
@@ -111,25 +114,39 @@ class ContactData extends Component {
   }
 
   render() {
+    const { values, errors, touched } = this.props
+    // console.log(values)
+    // console.log(errors.length)
+    console.log(R.isEmpty(errors))
+    console.log(touched)
     const formElements = []
     for (let key in this.state.orderForm) {
       formElements.push({ id: key, config: this.state.orderForm[key] })
     }
-    console.log(formElements)
+    // console.log(formElements)
     let form = (
       <form onSubmit={this.orderHandler}>
         {formElements.map(element => {
           return (
             <Input
               key={element.id}
+              name={element.id}
               elementType={element.config.elementType}
               elementConfig={element.config.elementConfig}
-              value={element.config.value}
-              changed={event => this.changeHandler(event, element.id)}
+              value={values[element.id]}
+              touched={touched}
+              errors={errors}
+              // changed={event => this.changeHandler(event, element.id)}
             />
           )
         })}
-        <Button btnType="success">ORDER</Button>
+        {!R.isEmpty(touched) && R.isEmpty(errors) ? (
+          <Button btnType="success">ORDER</Button>
+        ) : (
+          <Button btnType="success" disabled>
+            ORDER
+          </Button>
+        )}
       </form>
     )
 
@@ -146,4 +163,35 @@ class ContactData extends Component {
   }
 }
 
-export default ContactData
+const FormikContactData = withFormik({
+  mapPropsToValues({
+    userName,
+    street,
+    zipcode,
+    country,
+    email,
+    deliveryMethod,
+  }) {
+    return {
+      userName: userName || '',
+      street: street || '',
+      zipcode: zipcode || '',
+      country: country || '',
+      email: email || '',
+      deliveryMethod: deliveryMethod || 'fastest',
+    }
+  },
+  validationSchema: Yup.object().shape({
+    userName: Yup.string()
+      .max(40, 'Name must be under 40 characters')
+      .required('Name is required'),
+    street: Yup.string().required('Street is required'),
+    zipCode: Yup.string().required('zipCode is required'),
+    country: Yup.string().required('country is required'),
+    email: Yup.string()
+      .email('Email not valid')
+      .required('Email is required'),
+  }),
+})(ContactData)
+
+export default FormikContactData

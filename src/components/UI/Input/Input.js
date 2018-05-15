@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { withFormik, Field } from 'formik'
+import Yup from 'yup'
 
 const InputWrapper = styled.div`
   width: 100%;
@@ -7,23 +9,7 @@ const InputWrapper = styled.div`
   box-sizing: border-box;
 `
 
-const InputElement = styled.input`
-  outline: none;
-  border: 1px solid #ccc;
-  background-color: white;
-  font: inherit;
-  padding: 6px 10px;
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-
-  &:focus {
-    outline: none;
-    background-color: #ccc;
-  }
-`
-
-const StyledSelect = styled.select`
+const InputElement = styled(Field)`
   outline: none;
   border: 1px solid #ccc;
   background-color: white;
@@ -47,51 +33,95 @@ const Label = styled.label`
 
 const Input = props => {
   let inputElement = null
-
-  switch (props.elementType) {
+  const {
+    elementType,
+    elementConfig,
+    changed,
+    label,
+    name,
+    value,
+    touched,
+    errors,
+  } = props
+  // console.log(errors)
+  // console.log(value)
+  switch (elementType) {
     case 'input':
       inputElement = (
         <InputElement
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}
+          {...elementConfig}
+          name={name}
+          value={value}
+          // onChange={changed}
         />
       )
       break
     case 'textarea':
       inputElement = (
         <InputElement
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}
+          {...elementConfig}
+          name={name}
+          value={value}
+          onChange={changed}
         />
       )
       break
     case 'select':
       inputElement = (
-        <StyledSelect value={props.value} onChange={props.changed}>
-          {props.elementConfig.options.map(option => {
+        <InputElement name={name} component="select">
+          {elementConfig.options.map(option => {
             return (
               <option key={option.value} value={option.value}>
                 {option.displayValue}
               </option>
             )
           })}
-        </StyledSelect>
+        </InputElement>
       )
       break
     default:
-      inputElement = (
-        <InputElement {...props.elementConfig} value={props.value} />
-      )
+      inputElement = <InputElement {...elementConfig} value={value} />
   }
 
   return (
     <InputWrapper>
-      <Label>{props.label}</Label>
+      <Label>{label}</Label>
       {inputElement}
+      {touched[name] &&
+        errors[name] && <div style={{ color: 'red' }}>{errors[name]}</div>}
     </InputWrapper>
   )
 }
+
+const FormikInput = withFormik({
+  mapPropsToValues({
+    userName,
+    street,
+    zipcode,
+    country,
+    email,
+    deliveryMethod,
+  }) {
+    return {
+      userName: userName || '',
+      street: street || '',
+      zipcode: zipcode || '',
+      country: country || '',
+      email: email || '',
+      deliveryMethod: deliveryMethod || 'fastest',
+    }
+  },
+  validationSchema: Yup.object().shape({
+    name: Yup.string()
+      .max(40, 'Name must be under 40 characters')
+      .required('Name is required'),
+    street: Yup.string().required('Street is required'),
+    zipCode: Yup.string().required('zipCode is required'),
+    country: Yup.string().required('country is required'),
+    email: Yup.string()
+      .email('Email not valid')
+      .required('Email is required'),
+  }),
+})(Input)
 
 export default Input

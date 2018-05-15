@@ -21,10 +21,15 @@ const StyledButton = styled.button`
     margin-left: 0;
     padding-left: 0;
   }
+
+  &:disabled{
+    color: #ccc;
+    cursor: not-allowed;
+  }
 `
 
-const Button = ({ btnType, children, onClick }) => (
-  <StyledButton btnType={btnType} onClick={onClick}>{children}</StyledButton>
+const Button = ({ btnType, children, onClick, disabled }) => (
+  <StyledButton btnType={btnType} onClick={onClick} disabled={disabled}>{children}</StyledButton>
 )
 
 export default Button
