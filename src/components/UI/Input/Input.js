@@ -43,8 +43,6 @@ const Input = props => {
     touched,
     errors,
   } = props
-  // console.log(errors)
-  // console.log(value)
   switch (elementType) {
     case 'input':
       inputElement = (
@@ -52,7 +50,6 @@ const Input = props => {
           {...elementConfig}
           name={name}
           value={value}
-          // onChange={changed}
         />
       )
       break
@@ -92,36 +89,5 @@ const Input = props => {
     </InputWrapper>
   )
 }
-
-const FormikInput = withFormik({
-  mapPropsToValues({
-    userName,
-    street,
-    zipcode,
-    country,
-    email,
-    deliveryMethod,
-  }) {
-    return {
-      userName: userName || '',
-      street: street || '',
-      zipcode: zipcode || '',
-      country: country || '',
-      email: email || '',
-      deliveryMethod: deliveryMethod || 'fastest',
-    }
-  },
-  validationSchema: Yup.object().shape({
-    name: Yup.string()
-      .max(40, 'Name must be under 40 characters')
-      .required('Name is required'),
-    street: Yup.string().required('Street is required'),
-    zipCode: Yup.string().required('zipCode is required'),
-    country: Yup.string().required('country is required'),
-    email: Yup.string()
-      .email('Email not valid')
-      .required('Email is required'),
-  }),
-})(Input)
 
 export default Input

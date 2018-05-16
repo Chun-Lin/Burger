@@ -115,15 +115,10 @@ class ContactData extends Component {
 
   render() {
     const { values, errors, touched } = this.props
-    // console.log(values)
-    // console.log(errors.length)
-    console.log(R.isEmpty(errors))
-    console.log(touched)
     const formElements = []
     for (let key in this.state.orderForm) {
       formElements.push({ id: key, config: this.state.orderForm[key] })
     }
-    // console.log(formElements)
     let form = (
       <form onSubmit={this.orderHandler}>
         {formElements.map(element => {
@@ -136,7 +131,6 @@ class ContactData extends Component {
               value={values[element.id]}
               touched={touched}
               errors={errors}
-              // changed={event => this.changeHandler(event, element.id)}
             />
           )
         })}
