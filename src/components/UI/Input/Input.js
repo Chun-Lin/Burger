@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { withFormik, Field } from 'formik'
-import Yup from 'yup'
+import { Field } from 'formik'
 
 const InputWrapper = styled.div`
   width: 100%;
@@ -46,11 +45,7 @@ const Input = props => {
   switch (elementType) {
     case 'input':
       inputElement = (
-        <InputElement
-          {...elementConfig}
-          name={name}
-          value={value}
-        />
+        <InputElement {...elementConfig} name={name} value={value} />
       )
       break
     case 'textarea':
