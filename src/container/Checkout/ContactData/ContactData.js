@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import Button from '../../../components/UI/Button/Button'
 import Spinner from '../../../components/UI/Spinner/Spinner'
 import Input from '../../../components/UI/Input/Input'
 import axios from '../../../axios-orders'
-import { withFormik, Field } from 'formik'
+import { withFormik } from 'formik'
 import Yup from 'yup'
 import * as R from 'ramda'
 
