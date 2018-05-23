@@ -54,8 +54,8 @@ class BurgerBuilder extends Component {
       .reduce((num, el) => {
         return num + el
       }, 0)
-      
-      return sum > 0
+
+    return sum > 0
   }
 
   isPurchasing = () => {
@@ -67,23 +67,8 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContinueHandler = () => {
-    const queryParams = []
-    if (this.state.ingredients) {
-      for (let i in this.state.ingredients) {
-        queryParams.push(
-          `${encodeURIComponent(i)}=${encodeURIComponent(
-            this.state.ingredients[i],
-          )}`,
-        )
-      }
-    }
-    if (this.state.totalPrice) {
-      queryParams.push(`totalPrice=${this.state.totalPrice}`)
-    }
-    const queryString = queryParams.join('&')
     this.props.history.push({
       pathname: '/checkout',
-      search: `?${queryString}`,
     })
   }
 
@@ -135,7 +120,7 @@ class BurgerBuilder extends Component {
     ) : (
       <Spinner />
     )
-    console.log(this.props.ingredients)
+    // console.log(this.props.ingredients)
     if (this.props.ingredients) {
       burger = (
         <Fragment>
@@ -179,10 +164,10 @@ class BurgerBuilder extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state)
+  // console.log(state)
   return {
     ingredients: state.ingredients,
-    totalPrice: state.totalPrice
+    totalPrice: state.totalPrice,
   }
 }
 

@@ -15,7 +15,7 @@ const INGREDIENT_PRICES = {
   salad: 15,
   cheese: 10,
   meat: 30,
-  bacon: 20
+  bacon: 20,
 }
 
 const reducer = handleActions(
@@ -26,7 +26,7 @@ const reducer = handleActions(
         ...state.ingredients,
         [ingredientName]: state.ingredients[ingredientName] + 1,
       },
-      totalPrice: state.totalPrice + INGREDIENT_PRICES[ingredientName]
+      totalPrice: state.totalPrice + INGREDIENT_PRICES[ingredientName],
     }),
     [DECREASE_INGREDIENT]: (state, { ingredientName }) => ({
       ...state,
@@ -34,7 +34,7 @@ const reducer = handleActions(
         ...state.ingredients,
         [ingredientName]: state.ingredients[ingredientName] - 1,
       },
-      totalPrice: state.totalPrice - INGREDIENT_PRICES[ingredientName]
+      totalPrice: state.totalPrice - INGREDIENT_PRICES[ingredientName],
     }),
   },
   initialState,

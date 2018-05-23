@@ -8,7 +8,23 @@ const InputWrapper = styled.div`
   box-sizing: border-box;
 `
 
-const InputElement = styled(Field)`
+const InputElement = styled.input`
+  outline: none;
+  border: 1px solid #ccc;
+  background-color: white;
+  font: inherit;
+  padding: 6px 10px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    background-color: #ccc;
+  }
+`
+
+const StyledSelect = styled.select`
   outline: none;
   border: 1px solid #ccc;
   background-color: white;
@@ -32,6 +48,8 @@ const Label = styled.label`
 
 const Input = props => {
   let inputElement = null
+  // console.log(props.elementConfig)
+  // console.log(props.elementType)
   const {
     elementType,
     elementConfig,
@@ -41,11 +59,19 @@ const Input = props => {
     value,
     touched,
     errors,
+    onChange,
   } = props
+
+  // console.log(elementConfig)
   switch (elementType) {
     case 'input':
       inputElement = (
-        <InputElement {...elementConfig} name={name} value={value} />
+        <InputElement
+          {...elementConfig}
+          name={name}
+          value={value}
+          onChange={onChange}
+        />
       )
       break
     case 'textarea':
@@ -60,7 +86,7 @@ const Input = props => {
       break
     case 'select':
       inputElement = (
-        <InputElement name={name} component="select">
+        <StyledSelect name={name}>
           {elementConfig.options.map(option => {
             return (
               <option key={option.value} value={option.value}>
@@ -68,7 +94,7 @@ const Input = props => {
               </option>
             )
           })}
-        </InputElement>
+        </StyledSelect>
       )
       break
     default:

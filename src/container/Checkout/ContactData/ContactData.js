@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
 
 import Button from '../../../components/UI/Button/Button'
 import Spinner from '../../../components/UI/Spinner/Spinner'
 import Input from '../../../components/UI/Input/Input'
 import axios from '../../../axios-orders'
-import { withFormik } from 'formik'
+import { withFormik, setFieldValue } from 'formik'
 import Yup from 'yup'
 import * as R from 'ramda'
 
@@ -114,7 +115,10 @@ class ContactData extends Component {
   }
 
   render() {
-    const { values, errors, touched } = this.props
+    const { values, errors, touched, handleChange } = this.props
+    console.log(values)
+    console.log(touched)
+    console.log(errors)
     const formElements = []
     for (let key in this.state.orderForm) {
       formElements.push({ id: key, config: this.state.orderForm[key] })
@@ -131,10 +135,11 @@ class ContactData extends Component {
               value={values[element.id]}
               touched={touched}
               errors={errors}
+              onChange={handleChange}
             />
           )
         })}
-        {!R.isEmpty(touched) && R.isEmpty(errors) ? (
+        {touched && R.isEmpty(errors) ? (
           <Button btnType="success">ORDER</Button>
         ) : (
           <Button btnType="success" disabled>
@@ -188,4 +193,9 @@ const FormikContactData = withFormik({
   }),
 })(ContactData)
 
-export default FormikContactData
+const mapStateToProps = state => ({
+  ingredients: state.ingredients,
+  totalPrice: state.totalPrice,
+})
+
+export default connect(mapStateToProps)(FormikContactData)
