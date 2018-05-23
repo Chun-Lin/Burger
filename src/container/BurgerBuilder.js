@@ -47,15 +47,15 @@ class BurgerBuilder extends Component {
   }
 
   isPurchasable = ingredients => {
-    const updatedPurchasable = Object.keys(ingredients)
+    const sum = Object.keys(ingredients)
       .map(key => {
         return ingredients[key]
       })
       .reduce((num, el) => {
         return num + el
       }, 0)
-
-    this.setState({ purchasable: updatedPurchasable > 0 })
+      
+      return sum > 0
   }
 
   isPurchasing = () => {
@@ -145,7 +145,7 @@ class BurgerBuilder extends Component {
             decreaseIngredients={this.props.onIngredientDecresed}
             price={this.props.totalPrice}
             disabled={disabledLessButtons}
-            purchasable={this.state.purchasable}
+            purchasable={this.isPurchasable(this.props.ingredients)}
             purchasing={this.isPurchasing}
           />
         </Fragment>
