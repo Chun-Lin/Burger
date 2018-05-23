@@ -13,8 +13,6 @@ import axios from '../axios-orders'
 import { connect } from 'react-redux'
 class BurgerBuilder extends Component {
   state = {
-    price: null,
-    totalPrice: 0,
     purchasable: true,
     purchasing: false,
     loading: false,
@@ -30,22 +28,22 @@ class BurgerBuilder extends Component {
     //   .catch(error => {
     //     this.setState({ error: true })
     //   })
-    axios
-      .get('/price.json')
-      .then(response => {
-        this.setState({ price: response.data })
-      })
-      .catch(error => {
-        this.setState({ error: true })
-      })
-    axios
-      .get('/initTotalPrice.json')
-      .then(response => {
-        this.setState({ totalPrice: response.data })
-      })
-      .catch(error => {
-        this.setState({ error: true })
-      })
+    // axios
+    //   .get('/price.json')
+    //   .then(response => {
+    //     this.setState({ price: response.data })
+    //   })
+    //   .catch(error => {
+    //     this.setState({ error: true })
+    //   })
+    // axios
+    //   .get('/initTotalPrice.json')
+    //   .then(response => {
+    //     this.setState({ totalPrice: response.data })
+    //   })
+    //   .catch(error => {
+    //     this.setState({ error: true })
+    //   })
   }
 
   isPurchasable = ingredients => {
@@ -138,14 +136,14 @@ class BurgerBuilder extends Component {
       <Spinner />
     )
     console.log(this.props.ingredients)
-    if (this.props.ingredients && this.state.price) {
+    if (this.props.ingredients) {
       burger = (
         <Fragment>
           <Burger ingredients={this.props.ingredients} />
           <BurgerControls
             addIngredients={this.props.onIngredientAdded}
             decreaseIngredients={this.props.onIngredientDecresed}
-            price={this.state.totalPrice}
+            price={this.props.totalPrice}
             disabled={disabledLessButtons}
             purchasable={this.state.purchasable}
             purchasing={this.isPurchasing}
@@ -158,7 +156,7 @@ class BurgerBuilder extends Component {
       ) : (
         <OrderSummary
           ingredients={this.props.ingredients}
-          price={this.state.totalPrice}
+          price={this.props.totalPrice}
           cancelClicked={this.purchaseCancelHandler}
           continueClicked={this.purchaseContinueHandler}
         />
@@ -183,7 +181,8 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
   console.log(state)
   return {
-    ingredients: state.ingredients
+    ingredients: state.ingredients,
+    totalPrice: state.totalPrice
   }
 }
 

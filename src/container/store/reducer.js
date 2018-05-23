@@ -11,6 +11,13 @@ const initialState = {
   totalPrice: 0,
 }
 
+const INGREDIENT_PRICES = {
+  salad: 15,
+  cheese: 10,
+  meat: 30,
+  bacon: 20
+}
+
 const reducer = handleActions(
   {
     [ADD_INGREDIENT]: (state, { ingredientName }) => ({
@@ -19,6 +26,7 @@ const reducer = handleActions(
         ...state.ingredients,
         [ingredientName]: state.ingredients[ingredientName] + 1,
       },
+      totalPrice: state.totalPrice + INGREDIENT_PRICES[ingredientName]
     }),
     [DECREASE_INGREDIENT]: (state, { ingredientName }) => ({
       ...state,
