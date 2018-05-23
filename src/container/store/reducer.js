@@ -34,6 +34,7 @@ const reducer = handleActions(
         ...state.ingredients,
         [ingredientName]: state.ingredients[ingredientName] - 1,
       },
+      totalPrice: state.totalPrice - INGREDIENT_PRICES[ingredientName]
     }),
   },
   initialState,
