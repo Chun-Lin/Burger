@@ -1,4 +1,2 @@
-import {createAction} from 'redux-actions'
-
-export const ADD_INGREDIENT = createAction('ADD_INGREDIENT')
-export const DECREASE_INGREDIENT = createAction('DECREASE_INGREDIENT')
+export const ADD_INGREDIENT = 'ADD_INGREDIENT'
+export const DECREASE_INGREDIENT = 'DECREASE_INGREDIENT'

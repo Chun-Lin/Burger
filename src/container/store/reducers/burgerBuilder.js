@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT, DECREASE_INGREDIENT } from './actionTypes'
+import { ADD_INGREDIENT, DECREASE_INGREDIENT } from '../actions/actionTypes'
 import { handleActions } from 'redux-actions'
 
 const initialState = {

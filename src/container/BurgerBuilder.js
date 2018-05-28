@@ -7,7 +7,7 @@ import OrderSummary from '../components/Burger/OrderSummary/OrderSummary'
 import Backdrop from '../components/UI/Backdrop/Backdrop'
 import Spinner from '../components/UI/Spinner/Spinner'
 import withErrorHandler from '../hoc/withErrorHandler'
-import { ADD_INGREDIENT, DECREASE_INGREDIENT } from './store/actionTypes'
+import { addIngredient, decreaseIngredient } from './store/actions/index'
 
 import axios from '../axios-orders'
 import { connect } from 'react-redux'
@@ -109,6 +109,7 @@ class BurgerBuilder extends Component {
   }
 
   render() {
+    console.log(this.props.ingredients)
     const disabledLessButtons = { ...this.props.ingredients }
     for (const key in disabledLessButtons) {
       disabledLessButtons[key] = disabledLessButtons[key] <= 0
@@ -174,9 +175,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onIngredientAdded: ingredientName =>
-      dispatch({ type: ADD_INGREDIENT, ingredientName: ingredientName }),
+      dispatch(addIngredient(ingredientName)),
     onIngredientDecresed: ingredientName =>
-      dispatch({ type: DECREASE_INGREDIENT, ingredientName: ingredientName }),
+      dispatch(decreaseIngredient(ingredientName)),
   }
 }
 
