@@ -7,9 +7,12 @@ import OrderSummary from '../components/Burger/OrderSummary/OrderSummary'
 import Backdrop from '../components/UI/Backdrop/Backdrop'
 import Spinner from '../components/UI/Spinner/Spinner'
 import withErrorHandler from '../hoc/withErrorHandler'
-import { addIngredient, decreaseIngredient } from './store/actions/index'
+import {
+  addIngredient,
+  decreaseIngredient,
+  setIngredient,
+} from './store/actions/index'
 
-import axios from '../axios-orders'
 import { connect } from 'react-redux'
 class BurgerBuilder extends Component {
   state = {
@@ -20,6 +23,7 @@ class BurgerBuilder extends Component {
   }
 
   componentDidMount() {
+    this.props.onIngredientInit()
     // axios
     //   .get('/ingredients.json')
     //   .then(response => {
@@ -116,7 +120,7 @@ class BurgerBuilder extends Component {
     }
 
     let orderSummary = null
-    let burger = this.state.error ? (
+    let burger = this.props.error ? (
       <p>Ingredients can't be loaded!</p>
     ) : (
       <Spinner />
@@ -169,6 +173,7 @@ const mapStateToProps = state => {
   return {
     ingredients: state.ingredients,
     totalPrice: state.totalPrice,
+    error: state.error,
   }
 }
 
@@ -178,6 +183,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(addIngredient(ingredientName)),
     onIngredientDecresed: ingredientName =>
       dispatch(decreaseIngredient(ingredientName)),
+    onIngredientInit: () => dispatch(setIngredient()),
   }
 }
 

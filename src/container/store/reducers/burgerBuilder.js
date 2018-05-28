@@ -1,14 +1,15 @@
-import { ADD_INGREDIENT, DECREASE_INGREDIENT } from '../actions/actionTypes'
+import {
+  ADD_INGREDIENT,
+  DECREASE_INGREDIENT,
+  SET_INGREDIENT,
+  FETCH_INGREDIENT_FAILED,
+} from '../actions/actionTypes'
 import { handleActions } from 'redux-actions'
 
 const initialState = {
-  ingredients: {
-    salad: 0,
-    bacon: 0,
-    cheese: 0,
-    meat: 0,
-  },
+  ingredients: null,
   totalPrice: 0,
+  error: false,
 }
 
 const INGREDIENT_PRICES = {
@@ -35,6 +36,17 @@ const reducer = handleActions(
         [ingredientName]: state.ingredients[ingredientName] - 1,
       },
       totalPrice: state.totalPrice - INGREDIENT_PRICES[ingredientName],
+    }),
+    [SET_INGREDIENT]: (state, { ingredients }) => ({
+      ...state,
+      ingredients: {
+        ...ingredients,
+      },
+      error: false,
+    }),
+    [FETCH_INGREDIENT_FAILED]: state => ({
+      ...state,
+      error: true,
     }),
   },
   initialState,
