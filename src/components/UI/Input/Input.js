@@ -1,113 +1,66 @@
 import React from 'react'
-import styled from 'styled-components'
-import { Field } from 'formik'
-
-const InputWrapper = styled.div`
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-`
-
-const InputElement = styled.input`
-  outline: none;
-  border: 1px solid #ccc;
-  background-color: white;
-  font: inherit;
-  padding: 6px 10px;
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-
-  &:focus {
-    outline: none;
-    background-color: #ccc;
-  }
-`
-
-const StyledSelect = styled.select`
-  outline: none;
-  border: 1px solid #ccc;
-  background-color: white;
-  font: inherit;
-  padding: 6px 10px;
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-
-  &:focus {
-    outline: none;
-    background-color: #ccc;
-  }
-`
-
-const Label = styled.label`
-  font-weight: bold;
-  display: block;
-  margin-bottom: 8px;
-`
+import classes from './Input.css'
 
 const Input = props => {
   let inputElement = null
-  // console.log(props.elementConfig)
-  // console.log(props.elementType)
-  const {
-    elementType,
-    elementConfig,
-    changed,
-    label,
-    name,
-    value,
-    touched,
-    errors,
-    onChange,
-  } = props
+  const inputClasses = [classes.InputElement];
 
-  // console.log(elementConfig)
-  switch (elementType) {
+  if (props.invalid && props.shouldValidate && props.touched) {
+      inputClasses.push(classes.Invalid);
+  }
+
+  switch (props.elementType) {
     case 'input':
       inputElement = (
-        <InputElement
-          {...elementConfig}
-          name={name}
-          value={value}
-          onChange={onChange}
+        <input
+          className={inputClasses.join(' ')}
+          {...props.elementConfig}
+          value={props.value}
+          onChange={props.changed}
         />
       )
       break
     case 'textarea':
       inputElement = (
-        <InputElement
-          {...elementConfig}
-          name={name}
-          value={value}
-          onChange={changed}
+        <textarea
+          className={inputClasses.join(' ')}
+          {...props.elementConfig}
+          value={props.value}
+          onChange={props.changed}
         />
       )
       break
     case 'select':
       inputElement = (
-        <StyledSelect name={name}>
-          {elementConfig.options.map(option => {
-            return (
-              <option key={option.value} value={option.value}>
-                {option.displayValue}
-              </option>
-            )
-          })}
-        </StyledSelect>
+        <select
+          className={inputClasses.join(' ')}
+          value={props.value}
+          onChange={props.changed}
+        >
+          {props.elementConfig.options.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.displayValue}
+            </option>
+          ))}
+        </select>
       )
       break
     default:
-      inputElement = <InputElement {...elementConfig} value={value} />
+      inputElement = (
+        <input
+          className={inputClasses.join(' ')}
+          {...props.elementConfig}
+          value={props.value}
+          onChange={props.changed}
+        />
+      )
   }
 
   return (
-    <InputWrapper>
-      <Label>{label}</Label>
+    <div className={classes.Input}>
+      <label className={classes.Label}>{props.label}</label>
       {inputElement}
-      {touched[name] &&
-        errors[name] && <div style={{ color: 'red' }}>{errors[name]}</div>}
-    </InputWrapper>
+    </div>
   )
 }
 
