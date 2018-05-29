@@ -35,25 +35,24 @@ class Checkout extends Component {
   }
 
   render() {
-    const redirectHomePage = <Redirect to="/" />
-    const summary = (
-      <div>
-        <CheckoutSummary
-          ingredients={this.props.ingredients}
-          checkoutCancelled={this.checkoutCancelledHandler}
-          checkoutContinued={this.checkoutContinuedHandler}
-        />
-        <Route
-          path={this.props.match.url + '/contact-data'}
-          component={ContactData}
-        />
-      </div>
-    )
-    return (
-      <Fragment>
-        this.props.ingredients ? {summary} : {redirectHomePage}
-      </Fragment>
-    )
+    let summary = <Redirect to="/" />
+
+    if (this.props.ingredients) {
+      summary = (
+        <div>
+          <CheckoutSummary
+            ingredients={this.props.ingredients}
+            checkoutCancelled={this.checkoutCancelledHandler}
+            checkoutContinued={this.checkoutContinuedHandler}
+          />
+          <Route
+            path={this.props.match.url + '/contact-data'}
+            component={ContactData}
+          />
+        </div>
+      )
+    }
+    return <Fragment>{summary}</Fragment>
   }
 }
 

@@ -7,7 +7,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner'
 import Input from '../../../components/UI/Input/Input'
 import axios from '../../../axios-orders'
 import withErrorHandler from '../../../hoc/withErrorHandler'
-import { purchaseBurgerStart } from '../../store/actions/index'
+import { purchaseBurger } from '../../store/actions/index'
 
 const StyledContactData = styled.div`
   margin: 20px auto;
@@ -182,6 +182,7 @@ class ContactData extends Component {
   }
 
   render() {
+    console.log(this.props)
     const formElementsArray = []
     for (let key in this.state.orderForm) {
       formElementsArray.push({
@@ -228,7 +229,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    onOrderBurger: orderData => dispatch(purchaseBurgerStart(orderData)),
+    onOrderBurger: orderData => dispatch(purchaseBurger(orderData)),
   }
 }
 
