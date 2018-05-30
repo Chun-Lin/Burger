@@ -8,7 +8,7 @@ import { handleActions } from 'redux-actions'
 
 const initialState = {
   ingredients: null,
-  totalPrice: 0,
+  totalPrice: 75,
   error: false,
 }
 
@@ -42,6 +42,7 @@ const reducer = handleActions(
       ingredients: {
         ...ingredients,
       },
+      totalPrice: 75,
       error: false,
     }),
     [FETCH_INGREDIENT_FAILED]: state => ({
