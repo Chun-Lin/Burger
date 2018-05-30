@@ -11,6 +11,7 @@ import {
   addIngredient,
   decreaseIngredient,
   setIngredient,
+  purchaseInit
 } from './store/actions/index'
 
 import { connect } from 'react-redux'
@@ -71,6 +72,7 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContinueHandler = () => {
+    this.props.purchaseInit()
     this.props.history.push({
       pathname: '/checkout',
     })
@@ -184,6 +186,7 @@ const mapDispatchToProps = dispatch => {
     onIngredientDecresed: ingredientName =>
       dispatch(decreaseIngredient(ingredientName)),
     onIngredientInit: () => dispatch(setIngredient()),
+    purchaseInit: () => dispatch(purchaseInit())
   }
 }
 

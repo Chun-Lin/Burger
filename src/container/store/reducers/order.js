@@ -2,6 +2,7 @@ import {
   PURCHASE_BURGER_SUCCESS,
   PURCHASE_BURGER_FAIL,
   PURCHASE_BURGER_START,
+  PURCHASE_BURGER_INIT,
 } from '../actions/actionTypes'
 import { handleActions } from 'redux-actions'
 
@@ -12,6 +13,10 @@ const initialState = {
 
 const reducer = handleActions(
   {
+    [PURCHASE_BURGER_INIT]: (state, actions) => ({
+      ...state,
+      purchased: false,
+    }),
     [PURCHASE_BURGER_START]: (state, actions) => ({
       ...state,
       loading: true,
@@ -24,6 +29,7 @@ const reducer = handleActions(
       return {
         ...state,
         loading: false,
+        purchased: true,
         orders: [...state.orders, { ...newOrder }],
       }
     },
