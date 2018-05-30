@@ -40,7 +40,7 @@ const Order = ({ ingredients, totalPrice, customerName }) => {
       <p>
         Price:{' '}
         <strong>
-          USD <strong>{totalPrice}</strong>
+          NTD <strong>{totalPrice}</strong>
         </strong>
       </p>
     </StyledOrder>
