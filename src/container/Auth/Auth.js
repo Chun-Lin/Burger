@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import Input from '../../components/UI/Input/Input'
 import Button from '../../components/UI/Button/Button'
 
-const Auth = styled.div`
+const StyledAuth = styled.div`
   margin: 20px auto;
   width: 80%;
   text-align: center;
@@ -132,12 +132,12 @@ class Auth extends Component {
     ))
 
     return (
-      <Auth>
+      <StyledAuth>
         <form onSubmit={this.submitHandler}>
           {form}
-          <Button btnType="Success">SUBMIT</Button>
+          <Button btnType="success">SUBMIT</Button>
         </form>
-      </Auth>
+      </StyledAuth>
     )
   }
 }
