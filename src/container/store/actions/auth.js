@@ -15,10 +15,10 @@ const authSuccess = authData => {
   }
 }
 
-const authFail = error => {
+const authFail = error_message => {
   return {
     type: AUTH_FAIL,
-    error: error,
+    error_message: error_message,
   }
 }
 
@@ -43,7 +43,7 @@ export const auth = (email, password, isSignUp) => {
       })
       .catch(error => {
         console.log(error)
-        dispatch(authFail(error))
+        dispatch(authFail(error.response.data.error))
       })
   }
 }

@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { auth } from '../store/actions/auth'
 import styled from 'styled-components'
 
 import Input from '../../components/UI/Input/Input'
 import Button from '../../components/UI/Button/Button'
+import Spinner from '../../components/UI/Spinner/Spinner'
 
 const StyledAuth = styled.div`
   margin: 20px auto;
@@ -107,7 +108,7 @@ class Auth extends Component {
     this.props.onAuth(
       this.state.controls.email.value,
       this.state.controls.password.value,
-      this.state.isSignUp
+      this.state.isSignUp,
     )
   }
 
@@ -126,7 +127,7 @@ class Auth extends Component {
       })
     }
 
-    const form = formElementsArray.map(formElement => (
+    let form = formElementsArray.map(formElement => (
       <Input
         key={formElement.id}
         elementType={formElement.config.elementType}
@@ -139,8 +140,18 @@ class Auth extends Component {
       />
     ))
 
+    if (this.props.loading) {
+      form = <Spinner />
+    }
+
+    let error_message = <Fragment />
+    if (this.props.error_message) {
+      error_message = <p>{this.props.error_message}</p>
+    }
+
     return (
       <StyledAuth>
+        {error_message}
         <form onSubmit={this.submitHandler}>
           {form}
           <Button btnType="success">SUBMIT</Button>
@@ -153,10 +164,16 @@ class Auth extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  loading: state.auth.loading,
+  error_message: state.auth.error_message,
+})
+
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (email, password, isSignUp) => dispatch(auth(email, password, isSignUp)),
+    onAuth: (email, password, isSignUp) =>
+      dispatch(auth(email, password, isSignUp)),
   }
 }
 
-export default connect(null, mapDispatchToProps)(Auth)
+export default connect(mapStateToProps, mapDispatchToProps)(Auth)
