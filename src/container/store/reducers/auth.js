@@ -1,5 +1,10 @@
 import { handleActions } from 'redux-actions'
-import { AUTH_START, AUTH_SUCCESS, AUTH_FAIL } from '../actions/actionTypes'
+import {
+  AUTH_START,
+  AUTH_SUCCESS,
+  AUTH_FAIL,
+  AUTH_LOGOUT,
+} from '../actions/actionTypes'
 
 const initialState = {
   token: null,
@@ -25,6 +30,11 @@ const reducer = handleActions(
       ...state,
       error_message: error_message.message,
       loading: false,
+    }),
+    [AUTH_LOGOUT]: state => ({
+      ...state,
+      token: null,
+      userID: null,
     }),
   },
   initialState,
