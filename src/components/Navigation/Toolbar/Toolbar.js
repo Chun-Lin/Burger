@@ -32,7 +32,7 @@ const WrapperNav = styled.nav`
   }
 `
 
-const Toolbar = ({ drawerToggleClicked }) => {
+const Toolbar = ({ drawerToggleClicked, isAuth }) => {
   return (
     <StyledToolbar>
       <DrawerToggle onClick={drawerToggleClicked} />
@@ -40,7 +40,7 @@ const Toolbar = ({ drawerToggleClicked }) => {
         <Logo />
       </WrapperLogo>
       <WrapperNav>
-        <NavigationItems />
+        <NavigationItems isAuthenticated={isAuth} />
       </WrapperNav>
     </StyledToolbar>
   )

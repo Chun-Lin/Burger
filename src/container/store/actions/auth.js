@@ -22,7 +22,7 @@ const authFail = error_message => {
   }
 }
 
-const logout = () => ({
+export const logout = () => ({
   type: AUTH_LOGOUT,
 })
 

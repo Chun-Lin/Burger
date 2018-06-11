@@ -4,6 +4,7 @@ import Toolbar from '../components/Navigation/Toolbar/Toolbar'
 import SideDrawer from '../components/Navigation/SideDrawer/SideDrawer'
 import Backdrop from '../components/UI/Backdrop/Backdrop'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 const StyledMain = styled.main`
   margin-top: 72px;
@@ -34,16 +35,22 @@ class Layout extends Component {
         ) : (
           <Fragment />
         )}
-        <SideDrawer open={this.state.isSideDrawerOpen} />
-        <Toolbar drawerToggleClicked={this.drawerToggleHandler} />
+        <SideDrawer isAuth={this.props.isAuthenticated} open={this.state.isSideDrawerOpen} />
+        <Toolbar isAuth={this.props.isAuthenticated} drawerToggleClicked={this.drawerToggleHandler} />
         <StyledMain>{children}</StyledMain>
       </Fragment>
     )
   }
 }
 
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.token !== null
+})
+
+
+
 Layout.propTypes = {
   children: PropTypes.node,
 }
 
-export default Layout
+export default connect(mapStateToProps)(Layout)
