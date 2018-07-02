@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { auth } from '../store/actions/auth'
+import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Input from '../../components/UI/Input/Input'
@@ -149,8 +150,14 @@ class Auth extends Component {
       error_message = <p>{this.props.error_message}</p>
     }
 
+    let authRedirect = null
+    if (this.props.isAuthenticated) {
+      authRedirect = <Redirect to="/" />
+    }
+
     return (
       <StyledAuth>
+        {authRedirect}
         {error_message}
         <form onSubmit={this.submitHandler}>
           {form}
@@ -167,6 +174,7 @@ class Auth extends Component {
 const mapStateToProps = state => ({
   loading: state.auth.loading,
   error_message: state.auth.error_message,
+  isAuthenticated: state.auth.token !== null,
 })
 
 const mapDispatchToProps = dispatch => {
@@ -176,4 +184,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Auth)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Auth)
