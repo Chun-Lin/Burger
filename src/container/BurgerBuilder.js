@@ -11,7 +11,7 @@ import {
   addIngredient,
   decreaseIngredient,
   setIngredient,
-  purchaseInit
+  purchaseInit,
 } from './store/actions/index'
 
 import { connect } from 'react-redux'
@@ -64,7 +64,9 @@ class BurgerBuilder extends Component {
   }
 
   isPurchasing = () => {
-    this.setState({ purchasing: true })
+    this.props.isAuthenticated
+      ? this.setState({ purchasing: true })
+      : this.props.history.push('/auth')
   }
 
   purchaseCancelHandler = () => {
@@ -139,6 +141,7 @@ class BurgerBuilder extends Component {
             disabled={disabledLessButtons}
             purchasable={this.isPurchasable(this.props.ingredients)}
             purchasing={this.isPurchasing}
+            isAuth={this.props.isAuthenticated}
           />
         </Fragment>
       )
@@ -176,6 +179,7 @@ const mapStateToProps = state => {
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
     error: state.error,
+    isAuthenticated: state.auth.token !== null,
   }
 }
 
@@ -186,10 +190,11 @@ const mapDispatchToProps = dispatch => {
     onIngredientDecresed: ingredientName =>
       dispatch(decreaseIngredient(ingredientName)),
     onIngredientInit: () => dispatch(setIngredient()),
-    purchaseInit: () => dispatch(purchaseInit())
+    purchaseInit: () => dispatch(purchaseInit()),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withErrorHandler(BurgerBuilder),
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withErrorHandler(BurgerBuilder))
