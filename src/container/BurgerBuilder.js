@@ -12,6 +12,7 @@ import {
   decreaseIngredient,
   setIngredient,
   purchaseInit,
+  setAuthRedirectPath,
 } from './store/actions/index'
 
 import { connect } from 'react-redux'
@@ -64,9 +65,12 @@ class BurgerBuilder extends Component {
   }
 
   isPurchasing = () => {
-    this.props.isAuthenticated
-      ? this.setState({ purchasing: true })
-      : this.props.history.push('/auth')
+    if (this.props.isAuthenticated) {
+      this.setState({ purchasing: true })
+    } else {
+      this.props.onSetAuthRedirectPath('/checkout')
+      this.props.history.push('/auth')
+    }
   }
 
   purchaseCancelHandler = () => {
@@ -191,6 +195,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(decreaseIngredient(ingredientName)),
     onIngredientInit: () => dispatch(setIngredient()),
     purchaseInit: () => dispatch(purchaseInit()),
+    onSetAuthRedirectPath: path => dispatch(setAuthRedirectPath(path)),
   }
 }
 

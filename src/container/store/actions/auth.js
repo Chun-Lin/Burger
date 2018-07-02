@@ -1,4 +1,10 @@
-import { AUTH_START, AUTH_SUCCESS, AUTH_FAIL, AUTH_LOGOUT } from './actionTypes'
+import {
+  AUTH_START,
+  AUTH_SUCCESS,
+  AUTH_FAIL,
+  AUTH_LOGOUT,
+  SET_AUTH_REDIRECT_PATH,
+} from './actionTypes'
 import axios from 'axios'
 import API_KEY from '../../../constants/auth'
 
@@ -58,5 +64,12 @@ export const auth = (email, password, isSignUp) => {
         console.log(error)
         dispatch(authFail(error.response.data.error))
       })
+  }
+}
+
+export const setAuthRedirectPath = path => {
+  return {
+    type: SET_AUTH_REDIRECT_PATH,
+    path: path,
   }
 }

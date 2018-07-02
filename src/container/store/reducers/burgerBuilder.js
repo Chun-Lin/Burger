@@ -10,6 +10,7 @@ const initialState = {
   ingredients: null,
   totalPrice: 75,
   error: false,
+  building: false
 }
 
 const INGREDIENT_PRICES = {
@@ -28,6 +29,7 @@ const reducer = handleActions(
         [ingredientName]: state.ingredients[ingredientName] + 1,
       },
       totalPrice: state.totalPrice + INGREDIENT_PRICES[ingredientName],
+      building: true
     }),
     [DECREASE_INGREDIENT]: (state, { ingredientName }) => ({
       ...state,
@@ -36,6 +38,7 @@ const reducer = handleActions(
         [ingredientName]: state.ingredients[ingredientName] - 1,
       },
       totalPrice: state.totalPrice - INGREDIENT_PRICES[ingredientName],
+      building: true
     }),
     [SET_INGREDIENT]: (state, { ingredients }) => ({
       ...state,
@@ -44,6 +47,7 @@ const reducer = handleActions(
       },
       totalPrice: 75,
       error: false,
+      building: false
     }),
     [FETCH_INGREDIENT_FAILED]: state => ({
       ...state,
