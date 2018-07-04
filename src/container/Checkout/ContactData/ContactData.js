@@ -183,7 +183,6 @@ class ContactData extends Component {
   }
 
   render() {
-    console.log(this.props)
     const formElementsArray = []
     for (let key in this.state.orderForm) {
       formElementsArray.push({
@@ -227,18 +226,20 @@ const mapStateToProps = state => ({
   totalPrice: state.burgerBuilder.totalPrice,
   loading: state.order.loading,
   token: state.auth.token,
-  userId: state.auth.userID
+  userId: state.auth.userID,
 })
 
 const mapDispatchToProps = dispatch => {
   return {
-    onOrderBurger: (orderData, token) => dispatch(purchaseBurger(orderData, token)),
+    onOrderBurger: (orderData, token) =>
+      dispatch(purchaseBurger(orderData, token)),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withErrorHandler(ContactData),
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withErrorHandler(ContactData))
 
 // const FormikContactData = withFormik({
 //   mapPropsToValues({

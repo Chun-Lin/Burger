@@ -22,7 +22,6 @@ const Order = ({ ingredients, totalPrice, customerName }) => {
   for (let ingre in ingredients) {
     orderIngredients.push({ name: ingre, amount: ingredients[ingre] })
   }
-  console.log(orderIngredients)
 
   const ingredientOutput = orderIngredients.map(orderIngre => {
     return (

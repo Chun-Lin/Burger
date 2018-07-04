@@ -12,14 +12,11 @@ const withErrorHandler = WrappedComponent => {
           this.setState({ error: false, errorMessage: '' })
           return req
         },
-        error => {
-          console.log(error)
-        },
+        error => {},
 
         (this.resInterceptor = axios.interceptors.response.use(
           res => res,
           error => {
-            console.log(error)
             this.setState({ error: true, errorMessage: error })
           },
         )),
@@ -31,9 +28,9 @@ const withErrorHandler = WrappedComponent => {
       errorMessage: '',
     }
 
-    componentWillUnmount(){
-      axios.interceptors.request.eject(this.reqInterceptor);
-      axios.interceptors.request.eject(this.resInterceptor);
+    componentWillUnmount() {
+      axios.interceptors.request.eject(this.reqInterceptor)
+      axios.interceptors.request.eject(this.resInterceptor)
     }
 
     modalClosedHandler = () => {

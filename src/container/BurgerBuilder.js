@@ -121,7 +121,6 @@ class BurgerBuilder extends Component {
   }
 
   render() {
-    console.log(this.props.ingredients)
     const disabledLessButtons = { ...this.props.ingredients }
     for (const key in disabledLessButtons) {
       disabledLessButtons[key] = disabledLessButtons[key] <= 0
@@ -133,7 +132,6 @@ class BurgerBuilder extends Component {
     ) : (
       <Spinner />
     )
-    // console.log(this.props.ingredients)
     if (this.props.ingredients) {
       burger = (
         <Fragment>
@@ -178,7 +176,6 @@ class BurgerBuilder extends Component {
 }
 
 const mapStateToProps = state => {
-  // console.log(state)
   return {
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
