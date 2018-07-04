@@ -12,10 +12,8 @@ const initialState = {
   userID: null,
   error_message: null,
   loading: false,
-  authRedirectPath: '/'
+  authRedirectPath: '/',
 }
-
-
 
 const reducer = handleActions(
   {
@@ -23,10 +21,10 @@ const reducer = handleActions(
       ...state,
       loading: true,
     }),
-    [AUTH_SUCCESS]: (state, { authData }) => ({
+    [AUTH_SUCCESS]: (state, { idToken, userId }) => ({
       ...state,
-      userID: authData.localId,
-      token: authData.idToken,
+      userID: userId,
+      token: idToken,
       error_message: null,
       loading: false,
     }),
@@ -40,10 +38,10 @@ const reducer = handleActions(
       token: null,
       userID: null,
     }),
-    [SET_AUTH_REDIRECT_PATH]: (state, {path}) => ({
+    [SET_AUTH_REDIRECT_PATH]: (state, { path }) => ({
       ...state,
-      authRedirectPath: path
-    })
+      authRedirectPath: path,
+    }),
   },
   initialState,
 )
