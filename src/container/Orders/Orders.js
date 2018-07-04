@@ -13,7 +13,7 @@ class Orders extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchOrder(this.props.token)
+    this.props.fetchOrder(this.props.token, this.props.userId)
   }
 
   render() {
@@ -35,13 +35,15 @@ class Orders extends Component {
 const mapStateToProps = state => ({
   orders: state.order.orders,
   loading: state.order.loading,
-  token: state.auth.token
+  token: state.auth.token,
+  userId: state.auth.userID,
 })
 
 const mapDispatchToProps = {
   fetchOrder,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withErrorHandler(Orders),
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withErrorHandler(Orders))
