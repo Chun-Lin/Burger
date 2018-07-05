@@ -1,8 +1,8 @@
 Arguments: 
-  /Users/garywu/.nvm/versions/node/v8.11.2/bin/node /Users/garywu/.nvm/versions/node/v8.11.2/bin/yarn add redux-devtools-extensions
+  /Users/garywu/.nvm/versions/node/v8.11.2/bin/node /Users/garywu/.nvm/versions/node/v8.11.2/bin/yarn add enzyme react-test-renderer enzyme-adpater-react-16
 
 PATH: 
-  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/garywu/.nvm/versions/node/v8.11.2/bin
+  /Users/garywu/.nvm/versions/node/v8.11.2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 Yarn version: 
   1.6.0
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/redux-devtools-extensions: Not found
+  Error: https://registry.yarnpkg.com/enzyme-adpater-react-16: Not found
       at Request.params.callback [as _callback] (/Users/garywu/.nvm/versions/node/v8.11.2/lib/node_modules/yarn/lib/cli.js:65327:18)
       at Request.self.callback (/Users/garywu/.nvm/versions/node/v8.11.2/lib/node_modules/yarn/lib/cli.js:133155:22)
       at emitTwo (events.js:126:13)
