@@ -1,6 +1,7 @@
 import { delay } from 'redux-saga'
 import { put } from 'redux-saga/effects'
 import axios from '../../../axios-orders'
+import API_KEY from '../../../constants/auth'
 
 import {
   logoutSucceed,
@@ -51,21 +52,20 @@ export function* authUserSaga(action) {
   }
 }
 
-
-export function* authCheckStateSaga(action){
+export function* authCheckStateSaga(action) {
   const token = yield localStorage.getItem('token')
-    const expirationDate = yield new Date(localStorage.getItem('expirationDate'))
-    const userId = yield localStorage.getItem('userId')
-    if (!token) {
-      yield put(logout())
-    } else if (expirationDate <= new Date()) {
-      yield put(logout())
-    } else {
-      yield put(authSuccess(token, userId))
-      yield put(
-        checkAuthTimeout(
-          (expirationDate.getTime() - new Date().getTime()) / 1000,
-        ),
-      )
-    }
+  const expirationDate = yield new Date(localStorage.getItem('expirationDate'))
+  const userId = yield localStorage.getItem('userId')
+  if (!token) {
+    yield put(logout())
+  } else if (expirationDate <= new Date()) {
+    yield put(logout())
+  } else {
+    yield put(authSuccess(token, userId))
+    yield put(
+      checkAuthTimeout(
+        (expirationDate.getTime() - new Date().getTime()) / 1000,
+      ),
+    )
+  }
 }
