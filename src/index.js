@@ -10,7 +10,11 @@ import App from './App'
 import burgerBuilderReducer from './container/store/reducers/burgerBuilder'
 import orderReducer from './container/store/reducers/order'
 import authReducer from './container/store/reducers/auth'
-import { watchAuth, watchBurgerBuilder } from './container/store/sagas'
+import {
+  watchAuth,
+  watchBurgerBuilder,
+  watchOrder,
+} from './container/store/sagas'
 
 const composeEnhancers =
   process.env.NODE_ENV === 'development'
@@ -32,6 +36,7 @@ const store = createStore(
 
 sagaMillderware.run(watchAuth)
 sagaMillderware.run(watchBurgerBuilder)
+sagaMillderware.run(watchOrder)
 
 const app = (
   <Provider store={store}>
