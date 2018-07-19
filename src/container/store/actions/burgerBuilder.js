@@ -3,6 +3,7 @@ import {
   DECREASE_INGREDIENT,
   SET_INGREDIENT,
   FETCH_INGREDIENT_FAILED,
+  INIT_INGREDIENT,
 } from './actionTypes'
 import axios from '../../../axios-orders'
 
@@ -16,24 +17,17 @@ export const decreaseIngredient = name => ({
   ingredientName: name,
 })
 
-const fetchIngredient = ingredients => ({
+export const fetchIngredient = ingredients => ({
   type: SET_INGREDIENT,
   ingredients: ingredients,
 })
 
-const fetchIngredientFailed = () => ({
+export const fetchIngredientFailed = () => ({
   type: FETCH_INGREDIENT_FAILED,
 })
 
 export const setIngredient = () => {
-  return dispatch => {
-    axios
-      .get('/ingredients.json')
-      .then(response => {
-        dispatch(fetchIngredient(response.data))
-      })
-      .catch(error => {
-        dispatch(fetchIngredientFailed())
-      })
+  return {
+    type: INIT_INGREDIENT,
   }
 }
