@@ -31,7 +31,7 @@ const WrapperLogo = styled.div`
   margin-bottom: 32px;
 `
 
-const SideDrawer = ({ open }) => {
+const SideDrawer = ({ open, isAuth }) => {
   return (
     <Fragment>
       <StyledSideDrawer show={open}>
@@ -39,7 +39,7 @@ const SideDrawer = ({ open }) => {
           <Logo />
         </WrapperLogo>
         <nav>
-          <NavigationItems />
+          <NavigationItems isAuthenticated={isAuth} />
         </nav>
       </StyledSideDrawer>
     </Fragment>

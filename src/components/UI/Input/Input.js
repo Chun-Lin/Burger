@@ -1,87 +1,75 @@
 import React from 'react'
+<<<<<<< HEAD
 import styled from 'styled-components'
 import { Field } from 'formik'
-
-const InputWrapper = styled.div`
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-`
-
-const InputElement = styled(Field)`
-  outline: none;
-  border: 1px solid #ccc;
-  background-color: white;
-  font: inherit;
-  padding: 6px 10px;
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-
-  &:focus {
-    outline: none;
-    background-color: #ccc;
-  }
-`
-
-const Label = styled.label`
-  font-weight: bold;
-  display: block;
-  margin-bottom: 8px;
-`
+=======
+import classes from './Input.css'
+>>>>>>> redux-saga-version
 
 const Input = props => {
   let inputElement = null
-  const {
-    elementType,
-    elementConfig,
-    changed,
-    label,
-    name,
-    value,
-    touched,
-    errors,
-  } = props
-  switch (elementType) {
+  const inputClasses = [classes.InputElement];
+
+  if (props.invalid && props.shouldValidate && props.touched) {
+      inputClasses.push(classes.Invalid);
+  }
+
+  switch (props.elementType) {
     case 'input':
       inputElement = (
+<<<<<<< HEAD
         <InputElement {...elementConfig} name={name} value={value} />
+=======
+        <input
+          className={inputClasses.join(' ')}
+          {...props.elementConfig}
+          value={props.value}
+          onChange={props.changed}
+        />
+>>>>>>> redux-saga-version
       )
       break
     case 'textarea':
       inputElement = (
-        <InputElement
-          {...elementConfig}
-          name={name}
-          value={value}
-          onChange={changed}
+        <textarea
+          className={inputClasses.join(' ')}
+          {...props.elementConfig}
+          value={props.value}
+          onChange={props.changed}
         />
       )
       break
     case 'select':
       inputElement = (
-        <InputElement name={name} component="select">
-          {elementConfig.options.map(option => {
-            return (
-              <option key={option.value} value={option.value}>
-                {option.displayValue}
-              </option>
-            )
-          })}
-        </InputElement>
+        <select
+          className={inputClasses.join(' ')}
+          value={props.value}
+          onChange={props.changed}
+        >
+          {props.elementConfig.options.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.displayValue}
+            </option>
+          ))}
+        </select>
       )
       break
     default:
-      inputElement = <InputElement {...elementConfig} value={value} />
+      inputElement = (
+        <input
+          className={inputClasses.join(' ')}
+          {...props.elementConfig}
+          value={props.value}
+          onChange={props.changed}
+        />
+      )
   }
 
   return (
-    <InputWrapper>
-      <Label>{label}</Label>
+    <div className={classes.Input}>
+      <label className={classes.Label}>{props.label}</label>
       {inputElement}
-      {touched[name] &&
-        errors[name] && <div style={{ color: 'red' }}>{errors[name]}</div>}
-    </InputWrapper>
+    </div>
   )
 }
 

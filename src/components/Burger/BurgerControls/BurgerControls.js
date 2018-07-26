@@ -75,6 +75,7 @@ const BurgerControls = ({
   disabled,
   purchasable,
   purchasing,
+  isAuth
 }) => {
   return (
     <StyledBurgerContorls>
@@ -91,7 +92,7 @@ const BurgerControls = ({
         />
       ))}
       <OrderButton disabled={!purchasable} onClick={purchasing}>
-        Order Now!
+        {isAuth ? 'ORDER NOW!' : 'SIGN UP TO ORDER'}
       </OrderButton>
     </StyledBurgerContorls>
   )

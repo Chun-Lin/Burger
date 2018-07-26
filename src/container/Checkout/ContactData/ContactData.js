@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
 
 import Button from '../../../components/UI/Button/Button'
 import Spinner from '../../../components/UI/Spinner/Spinner'
 import Input from '../../../components/UI/Input/Input'
 import axios from '../../../axios-orders'
-import { withFormik } from 'formik'
-import Yup from 'yup'
-import * as R from 'ramda'
+import withErrorHandler from '../../../hoc/withErrorHandler'
+import { purchaseBurger } from '../../store/actions/index'
 
 const StyledContactData = styled.div`
   margin: 20px auto;
@@ -24,13 +24,18 @@ const StyledContactData = styled.div`
 class ContactData extends Component {
   state = {
     orderForm: {
-      userName: {
+      name: {
         elementType: 'input',
         elementConfig: {
           type: 'text',
           placeholder: 'Your Name',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
       },
       street: {
         elementType: 'input',
@@ -39,6 +44,11 @@ class ContactData extends Component {
           placeholder: 'Street',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
       },
       zipCode: {
         elementType: 'input',
@@ -47,6 +57,14 @@ class ContactData extends Component {
           placeholder: 'ZIP Code',
         },
         value: '',
+        validation: {
+          required: true,
+          minLength: 5,
+          maxLength: 5,
+          isNumeric: true,
+        },
+        valid: false,
+        touched: false,
       },
       country: {
         elementType: 'input',
@@ -55,6 +73,11 @@ class ContactData extends Component {
           placeholder: 'Country',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
       },
       email: {
         elementType: 'input',
@@ -63,6 +86,12 @@ class ContactData extends Component {
           placeholder: 'Your E-Mail',
         },
         value: '',
+        validation: {
+          required: true,
+          isEmail: true,
+        },
+        valid: false,
+        touched: false,
       },
       deliveryMethod: {
         elementType: 'select',
@@ -73,119 +102,172 @@ class ContactData extends Component {
           ],
         },
         value: 'fastest',
+        validation: {},
+        valid: true,
       },
     },
+    formIsValid: false,
     loading: false,
   }
 
   orderHandler = event => {
     event.preventDefault()
-    this.setState({ loading: true })
+
     const formData = {}
-    for (let formIdentifier in this.state.orderForm) {
-      formData[formIdentifier] = this.state.orderForm[formIdentifier].value
+    for (let formElementIdentifier in this.state.orderForm) {
+      formData[formElementIdentifier] = this.state.orderForm[
+        formElementIdentifier
+      ].value
     }
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.totalPrice,
       orderData: formData,
+      userId: this.props.userId,
     }
-    console.log(order)
-    axios
-      .post('/orders.json', order)
-      .then(response => {
-        console.log(response)
-        this.setState({ loading: false })
-        this.props.history.push('/')
-      })
-      .catch(error => {
-        console.log(error)
-      })
+
+    this.props.onOrderBurger(order, this.props.token)
   }
 
-  changeHandler = (event, inputIdentifier) => {
-    const updatedOrderForm = { ...this.state.orderForm }
-    const updatedOrderElement = { ...updatedOrderForm[inputIdentifier] }
+  checkValidity(value, rules) {
+    let isValid = true
+    if (!rules) {
+      return true
+    }
 
-    updatedOrderElement.value = event.target.value
-    updatedOrderForm[inputIdentifier] = updatedOrderElement
+    if (rules.required) {
+      isValid = value.trim() !== '' && isValid
+    }
 
-    this.setState({ orderForm: updatedOrderForm })
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength && isValid
+    }
+
+    if (rules.maxLength) {
+      isValid = value.length <= rules.maxLength && isValid
+    }
+
+    if (rules.isEmail) {
+      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+      isValid = pattern.test(value) && isValid
+    }
+
+    if (rules.isNumeric) {
+      const pattern = /^\d+$/
+      isValid = pattern.test(value) && isValid
+    }
+
+    return isValid
+  }
+
+  inputChangedHandler = (event, inputIdentifier) => {
+    const updatedOrderForm = {
+      ...this.state.orderForm,
+    }
+    const updatedFormElement = {
+      ...updatedOrderForm[inputIdentifier],
+    }
+    updatedFormElement.value = event.target.value
+    updatedFormElement.valid = this.checkValidity(
+      updatedFormElement.value,
+      updatedFormElement.validation,
+    )
+    updatedFormElement.touched = true
+    updatedOrderForm[inputIdentifier] = updatedFormElement
+
+    let formIsValid = true
+    for (let inputIdentifier in updatedOrderForm) {
+      formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid
+    }
+    this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid })
   }
 
   render() {
-    const { values, errors, touched } = this.props
-    const formElements = []
+    const formElementsArray = []
     for (let key in this.state.orderForm) {
-      formElements.push({ id: key, config: this.state.orderForm[key] })
+      formElementsArray.push({
+        id: key,
+        config: this.state.orderForm[key],
+      })
     }
     let form = (
       <form onSubmit={this.orderHandler}>
-        {formElements.map(element => {
-          return (
-            <Input
-              key={element.id}
-              name={element.id}
-              elementType={element.config.elementType}
-              elementConfig={element.config.elementConfig}
-              value={values[element.id]}
-              touched={touched}
-              errors={errors}
-            />
-          )
-        })}
-        {!R.isEmpty(touched) && R.isEmpty(errors) ? (
-          <Button btnType="success">ORDER</Button>
-        ) : (
-          <Button btnType="success" disabled>
-            ORDER
-          </Button>
-        )}
+        {formElementsArray.map(formElement => (
+          <Input
+            key={formElement.id}
+            elementType={formElement.config.elementType}
+            elementConfig={formElement.config.elementConfig}
+            value={formElement.config.value}
+            invalid={!formElement.config.valid}
+            shouldValidate={formElement.config.validation}
+            touched={formElement.config.touched}
+            changed={event => this.inputChangedHandler(event, formElement.id)}
+          />
+        ))}
+        <Button btnType="success" disabled={!this.state.formIsValid}>
+          ORDER
+        </Button>
       </form>
     )
-
-    if (this.state.loading === true) {
+    if (this.props.loading) {
       form = <Spinner />
     }
-
     return (
       <StyledContactData>
-        <h4>Enter Your Contact Data</h4>
+        <h4>Enter your Contact Data</h4>
         {form}
       </StyledContactData>
     )
   }
 }
 
-const FormikContactData = withFormik({
-  mapPropsToValues({
-    userName,
-    street,
-    zipcode,
-    country,
-    email,
-    deliveryMethod,
-  }) {
-    return {
-      userName: userName || '',
-      street: street || '',
-      zipcode: zipcode || '',
-      country: country || '',
-      email: email || '',
-      deliveryMethod: deliveryMethod || 'fastest',
-    }
-  },
-  validationSchema: Yup.object().shape({
-    userName: Yup.string()
-      .max(40, 'Name must be under 40 characters')
-      .required('Name is required'),
-    street: Yup.string().required('Street is required'),
-    zipCode: Yup.string().required('zipCode is required'),
-    country: Yup.string().required('country is required'),
-    email: Yup.string()
-      .email('Email not valid')
-      .required('Email is required'),
-  }),
-})(ContactData)
+const mapStateToProps = state => ({
+  ingredients: state.burgerBuilder.ingredients,
+  totalPrice: state.burgerBuilder.totalPrice,
+  loading: state.order.loading,
+  token: state.auth.token,
+  userId: state.auth.userID,
+})
 
-export default FormikContactData
+const mapDispatchToProps = dispatch => {
+  return {
+    onOrderBurger: (orderData, token) =>
+      dispatch(purchaseBurger(orderData, token)),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withErrorHandler(ContactData))
+
+// const FormikContactData = withFormik({
+//   mapPropsToValues({
+//     userName,
+//     street,
+//     zipcode,
+//     country,
+//     email,
+//     deliveryMethod,
+//   }) {
+//     return {
+//       userName: userName || '',
+//       street: street || '',
+//       zipcode: zipcode || '',
+//       country: country || '',
+//       email: email || '',
+//       deliveryMethod: deliveryMethod || 'fastest',
+//     }
+//   },
+//   validationSchema: Yup.object().shape({
+//     userName: Yup.string()
+//       .max(40, 'Name must be under 40 characters')
+//       .required('Name is required'),
+//     street: Yup.string().required('Street is required'),
+//     zipCode: Yup.string().required('zipCode is required'),
+//     country: Yup.string().required('country is required'),
+//     email: Yup.string()
+//       .email('Email not valid')
+//       .required('Email is required'),
+//   }),
+// })(ContactData)

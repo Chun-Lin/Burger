@@ -22,7 +22,6 @@ const Order = ({ ingredients, totalPrice, customerName }) => {
   for (let ingre in ingredients) {
     orderIngredients.push({ name: ingre, amount: ingredients[ingre] })
   }
-  console.log(orderIngredients)
 
   const ingredientOutput = orderIngredients.map(orderIngre => {
     return (
@@ -40,7 +39,7 @@ const Order = ({ ingredients, totalPrice, customerName }) => {
       <p>
         Price:{' '}
         <strong>
-          USD <strong>{totalPrice}</strong>
+          NTD <strong>{totalPrice}</strong>
         </strong>
       </p>
     </StyledOrder>
